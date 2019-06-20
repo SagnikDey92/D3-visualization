@@ -17,8 +17,10 @@ input_1.addEventListener('change', function (evnt)
     //document.getElementById("newbg").innerHTML=" ";
     document.getElementById("aggregatesumbg").innerHTML=" ";   
     document.getElementById("aggregatetempbg").innerHTML=" ";
+	
 
     var heading = document.createElement('divtext');
+    heading.setAttribute("id", "divtext");
     heading.innerHTML='<h2 style="width:250px;"><font color="black">Most Time Consuming Functions</h2>';
     document.body.appendChild(heading);
 
