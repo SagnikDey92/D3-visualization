@@ -10,3 +10,9 @@ The pre-requisites are as follows:
 
 *Server installation using the command sudo apt install nodejs and sudo apt-get install npm.
 *The data to be uploaded in the website which should be of .TSV format.
+*If you use npm, `npm install d3`. Otherwise, download the [latest release](https://github.com/d3/d3/releases/latest). The released bundle supports anonymous AMD, CommonJS, and vanilla environments. You can load directly from [d3js.org](https://d3js.org), [CDNJS](https://cdnjs.com/libraries/d3), or [unpkg](https://unpkg.com/d3/). For example:
+
+html
+<script src="https://d3js.org/d3.v5.js"></script>
+
+
