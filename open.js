@@ -15,6 +15,7 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
     //document.getElementById("newbg").innerHTML=" ";
     document.getElementById("aggregatesumbg").innerHTML=" ";
     document.getElementById("aggregatetempbg").innerHTML=" ";
+    document.getElementById("divtext").innerHTML=" ";
     
     for (var i = 0,j = fileInp.files.length; i<j; i++) 
       {
