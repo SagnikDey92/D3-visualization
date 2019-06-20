@@ -1,0 +1,129 @@
+ body{
+      color:white; 
+      background-color:white;				   
+      background-size:cover;
+     }
+
+ul {    
+    margin:0px;
+    margin-left:11px;						 
+    padding:0px;       
+    list-style:none;  
+    position:fixed;
+   }					
+       
+ul li {
+       text-align:left;                  
+       font-size:20px;
+       font-family:times new roman;
+      }
+
+ul li a{
+        text-decoration:none;  
+        color:black;
+        display:block; 
+       }
+
+ul li ul li{
+	    display: none;
+           }
+		
+#ag:hover ul li{
+		display: block;
+               }		 
+	
+#ag li{
+	    width: 100%;
+            position: relative;
+	    min-width: 100px;
+	    margin-left:100px;
+	    top:-30px;
+	    left: -20px;
+	    z-index:10;
+	    display: none;
+           }	
+	
+ul li:hover ul li{
+                  display:block;			
+                 }
+
+.button {
+         background:none;
+         color:inherit;
+         /*border:none;*/ 
+         padding:0!important;
+         font: inherit;
+         /*border is optional*/
+         border-bottom:1px solid #444; 
+         cursor: pointer;
+	 color:black;
+	 overflow:hidden;
+	}
+
+ul.nav.navbar-nav{
+                   position:sticky;
+		 }
+	
+#wrap {
+        width: 100%;
+	height:100%;
+      }
+
+#floatleft {    
+             float:left;
+             position: absolute; 
+	     top:210px;
+   	     width:15%;
+             bottom: 0;
+	     margin-bottom:30px;
+	     overflow-y:scroll;
+	  }
+
+
+#floatright {
+       	      position:absolute;
+	      width:85%;
+     	      right: 0;
+    	      top:0;
+    	      bottom: 0;
+      	      border-left:4px solid black;
+	      margin-top:52px;
+	      margin-bottom:30px;
+	      overflow-y:auto;
+	   }
+
+ #vl {
+      width: 10px;
+      height:100%;
+      position: absolute;
+      top:0;
+      bottom:0;
+      left:-5px;
+      cursor: w-resize;
+    } 
+.line {
+  	fill: none;
+  	stroke: steelblue;
+  	stroke-width: 4px;
+  	shape-rendering: crisp;
+      }
+
+.bar {
+       stroke-width:4px;
+       margin-left:20px;
+     }
+
+svg1 text.label {
+		  fill:white;
+		  font-size: 25px;  
+  		  text-anchor: middle; 
+		}
+
+.legend {
+    	  font-family: times new roman;
+          font-size:20px;
+	}
+
+
+
+

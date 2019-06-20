@@ -1,0 +1,24 @@
+{
+  "name": "d3-visualization",
+  "version": "1.0.0",
+  "description": "Analyse the performance of parallel computers and visualize it using D3",
+  "main": "main.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Deepcharran/D3-visualization.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Deepcharran/D3-visualization.git"
+  },
+  "homepage": "https://github.com/Deepcharran/D3-visualization.git#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "node-fetch": "^2.6.0"
+  }
+}
