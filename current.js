@@ -13,14 +13,15 @@ fileInput.addEventListener('change', function (evnt)
 	
       }
     
-    document.getElementById("text").innerHTML=" ";
+    document.getElementById("pathtext").innerHTML=" ";
     document.getElementById("openbg").innerHTML=" ";
     document.getElementById("currentbg").innerHTML=" ";
     document.getElementById("refreshbg").innerHTML=" ";
-    document.getElementById("cleanbg").innerHTML=" ";
-    document.getElementById("newbg").innerHTML=" ";
-    document.getElementById("aggregatebg").innerHTML=" ";
-    
+    //document.getElementById("cleanbg").innerHTML=" ";
+    //document.getElementById("newbg").innerHTML=" ";
+    document.getElementById("aggregatesumbg").innerHTML=" ";
+    document.getElementById("aggregatetempbg").innerHTML=" ";
+    document.getElementById("divtext").innerHTML=" ";
 
 //console.log(fileList);
 
