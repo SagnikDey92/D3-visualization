@@ -63,7 +63,7 @@
 	    <li id="ag"><a>Analysis</a>
 		<ul>
 		    <li><button id="temp" class="button">Temporal</button></li>
-		    <li><button id="agr" class="button">Aggregate(Sum)</button></li>
+		    <li><button onclick="summa()" id="agr" class="button">Aggregate(Sum)</button></li>
 	        </ul>
 	    </li>
 	    </li>
@@ -104,9 +104,8 @@
       <div id="aggregatetempbg"> </div>	
 
       <div id="pathtext">
-      <h1 style="text-align:center;"><font color="black">Path Selection</font></h1>
-      <h2 style="text-align:center;"><font color="black">Enter the path</font></h2>
-      <div id="path"style="text-align:center;"><font color="black"><input type="text" id="mytext" value="Path directory" ></font>
+      <h1 style="text-align:center;"><font color="black">Enter the path dirctory</font></h2>
+      <div id="path"style="text-align:center;"><font color="black"><input type="text" id="mytext" ></font>
       <font color="black"><button onclick="myFunction()" >Submit</button></font></div>
       </div>
 		<!-----Links to the external scripts----->
@@ -123,7 +122,7 @@
   
  
 <script>
-
+var fileLength=0;
 	
         var isResizing = false,lastDownX = 0;
 
@@ -156,13 +155,28 @@
             }
         })();
         
-  var xpath,data=[],filename=[],k,l=0;
+  var xpath,data=[],filename=[],k,dataArray=[];
+  function summa()
+  {
+    var fullpath=(sessionStorage.getItem("pathdir"));
+    console.log(fullpath);
+    if(fullpath)
+    {
+      noselect();
+    }
+    else
+    {
+      //console.log(fullpath);             
+      callevent();
+    }
+  }
   function myFunction() 
   {
+    
     xpath = document.getElementById("mytext").value;
-    console.log(xpath);
     sessionStorage.setItem("pathdir",xpath);
     document.getElementById("pathtext").innerHTML=" ";
+  
     var ws = new WebSocket("ws://127.0.0.1:8081");
 
     ws.onopen = function (event) 
@@ -183,23 +197,33 @@
 	if(k==="tsv")
 	{
 	  filename.push(event.data);
+          fileLength=fileLength+1;
 	  //console.log(filename);
 	}
 	else
 	{
 	  data=eval(event.data);
-	  console.log(data);
-   	  disp();
+          dataArray.push(data);
+	  disp();
 	}
+       
      };
 
     ws.onclose = function() 
      {
        console.log("Connection is closed...");
      };
+
   }
 function disp()
 {
+  var l=fileLength-6;
+  if(dataArray.length==fileLength)
+  {
+   for(i=fileLength-6;i<fileLength;i++)
+    {
+            var data=[];
+            data=dataArray[i];
 	    var width=350;
 	    var height=280;
 	  
@@ -361,6 +385,8 @@ function disp()
 			          .style("stroke-width", "1px");
 
 l=l+1;
+  }//for loop
+ }//if loop
  }		
 
 

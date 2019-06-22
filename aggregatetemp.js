@@ -1,34 +1,37 @@
+var funcobj1=[],funcobj2=[],funcobj3=[],funcobj4=[],funcobj5=[],max=0,filelen,func2=[],flag=0,flag2=0,res=[],res2=[],max2=0,dataArray2=[];
+var funcobj21=[],funcobj22=[],funcobj23=[],funcobj24=[],funcobj25=[];
 var elmnt2 = document.createElement('div');
 elmnt2.innerHTML = '<input type="file" id="bar2" accept=".tsv" webkitdirectory multiple >';
 var input_2 = elmnt2.firstChild;
 var select_2 = document.getElementById('temp');
 input_2.addEventListener('change', function (evnt) 
   {
-    document.getElementById("text").innerHTML=" ";
+    document.getElementById("pathtext").innerHTML=" ";
     document.getElementById("openbg").innerHTML=" ";
     document.getElementById("currentbg").innerHTML=" ";
-    document.getElementById("refreshbg").innerHTML=" ";
-    document.getElementById("cleanbg").innerHTML=" ";
-    document.getElementById("newbg").innerHTML=" ";
+    //document.getElementById("refreshbg").innerHTML=" ";
+    //document.getElementById("cleanbg").innerHTML=" ";
+    //document.getElementById("newbg").innerHTML=" ";
     document.getElementById("aggregatesumbg").innerHTML=" ";   
-    document.getElementById("aggregatetempbg").innerHTML=" ";
+    //document.getElementById("aggregatetempbg").innerHTML=" ";
 
-    var fileList = [],i,k,names=[],len,func=[],l=3,m=0,flag=0,flagi=0,t=0,o,q=0,x=0,label,res=[],funclen,s=0,st=0,dataArray=[];
+    var fileList = [],i,k,filename=[],len,l=3,m=0,n=0,flagi=0,t=0,o,q=0,x=0,label,s=0,st=0,dataArray=[],funclen,funclen2,flagi2=0;
     for (i = 0,j = input_2.files.length; i<j; i++) 
       {
   	fileList.push(input_2.files[i]);
   	
       }
-    var filelen=fileList.length;
-    console.log(filelen);
     for(i=0;i<50;i++)
     {
-      func.push([0]);  
-       
+      func.push([0,0]);  
+      func2.push([0,0]);      
     }
+    filelen=fileList.length;
+    console.log(fileList);
+    
     fileList.forEach(function (file, index) 
 	  {  
-	     names.push((file.name).split('.').slice(0,-1).join('.'));
+	     filename.push((file.name).split('.').slice(0,-1).join('.'));
 	  });
     var reA = /[^a-zA-Z]/g;
     var reN = /[^0-9]/g;
@@ -48,39 +51,57 @@ input_2.addEventListener('change', function (evnt)
         return aA > bA ? 1 : -1;
       }
     }
-    names=names.sort(sortAlphaNum);
-    console.log(names);
+    filename=filename.sort(sortAlphaNum);
+    console.log(filename);
     fileList.forEach(function (file, index) 
 	  {  
-	    d3.tsv("Data/"+ names[s]+".tsv", function(error, data) 
+	    d3.tsv("Data/"+ filename[s]+".tsv", function(error, data) 
     	    {	
 	      data.forEach(function(d)
 		  {
 	  	    flag=0;
+                    flag1=0;
 		    for(i=0;i<50;i++)
 		    {
 		      if(func[i][0]==d.Call + "(" + d.Site + ")")
 		      {
-		        //func[i][1]=func[i][1]+parseFloat(d.Time);	
+		        func[i][1]=func[i][1]+parseFloat(d.Time);	
 			flag=1;
 		      }
-	              
+                      
+                      if(func2[i][0]==d.Call + "(" + d.Site + ")")
+		      {
+		        func2[i][1]=func2[i][1]+parseFloat(d.Time);	
+			flag2=1;
+		      }
+ 
 		    }
 		    if(flag!=1)
 		      {
-			if((((d.Call + "(" + d.Site + ")").toLowerCase().indexOf("send"))!=-1)||(((d.Call + "(" + d.Site + ")").toLowerCase().indexOf("rec"))!=-1))
- 		        {
-			  func[m][0]=(d.Call + "(" + d.Site + ")");
-		          //func[m][1]=parseFloat(d.Time);
-			  m=m+1;
-               //           console.log(d.Call + "(" + d.Site + ")");
-			}
+                        if((((d.Call + "(" + d.Site + ")").toLowerCase().indexOf("send"))!=-1)||(((d.Call + "(" + d.Site + ")").toLowerCase().indexOf("rec"))!=-1))
+                        {
+			func[m][0]=(d.Call + "(" + d.Site + ")");
+		        func[m][1]=parseFloat(d.Time);
+			m=m+1;
+                        }
+                      }
+      
+                     if(flag2!=1)
+                       {    
+                        if((((d.Call + "(" + d.Site + ")").toLowerCase().indexOf("wait"))!=-1)||(((d.Call + "(" + d.Site + ")").toLowerCase().indexOf("barrier"))!=-1))
+                        {
+			func2[n][0]=(d.Call + "(" + d.Site + ")");
+		        func2[n][1]=parseFloat(d.Time);
+			n=n+1;
+                        }
 		      }
 		   });
               funclen=m;
+              funclen2=n;
               for(i=0;i<50;i++)
 	     {
 	       flagi=0;
+               flagi2=0;
 	       data.forEach(function(d)
 		  { 	  	
 		    if(func[i][0]==d.Call+ "(" +d.Site+ ")")
@@ -88,147 +109,277 @@ input_2.addEventListener('change', function (evnt)
 			  func[i].push(d.Time);
 			  flagi=1;
 			}
+                    if(func2[i][0]==d.Call+ "(" +d.Site+ ")")
+		        { 
+			  func2[i].push(d.Time);
+			  flagi2=1;
+			}
 		   });
  		   if(flagi==0)
 		        {
 			  func[i].push("0");
 			}
+	           if(flagi2==0)
+		        {
+			  func2[i].push("0");
+			}
 	           
 	      }
 	
 	     });
-
+	     
              s++;	
 	   });	
-     
+ 
+
+
     function timeout()
     {
-      
-      console.log(func);
-      for(i=0;i<funclen;i++)
+
+      func2.sort(sortfunction);       
+      func.sort(sortfunction);
+      function sortfunction(a,b)
+      {
+        if(a[1]===b[1])
+        {
+          return 0;
+        }
+        else
+        {
+          return(a[1]>b[1])?-1:1;
+        }
+      }
+       console.log(func);
+       console.log(func2);
+      for(i=0;i<5;i++)
       {
         res[i]=func[i];
         dataArray[i]=new Array(filelen).fill(0);
       }
-      console.log(res); 
+      console.log(res);
 
+       for(i=0;i<5;i++)
+      {
+        res2[i]=func2[i];
+        dataArray2[i]=new Array(filelen).fill(0);
+      }
+      console.log(res2);
+   
+   
+      x=0;
+      while(x<5)
+      {j=0;
+        for(i=2;i<filelen+2;i++)
+        {
+          dataArray[x][j]=(parseFloat(func[x][i]));
+          if(dataArray[x][j]>max)
+          {
+            max=dataArray[x][j];
+
+          }
+	  j++;
+        }
+        x++;
+      }
+
+
+      x=0;
+      while(x<5)
+      {j=0;
+        for(i=2;i<filelen+2;i++)
+        {
+          dataArray2[x][j]=(parseFloat(func2[x][i]));
+          if(dataArray2[x][j]>max2)
+          {
+            max2=dataArray[x][j];
+
+          }
+	  j++;
+        }
+        x++;
+      } 
+       
+      console.log(max);
+      console.log(max2);	
+      //console.log(dataArray);
+      
+  
+      for(i=0;i<dataArray[0].length;i++)
+        {  
+          funcobj1.push({
+          'Filename':filename[i],
+          'Value':parseFloat(dataArray[0][i])
+          });
+        }
+     console.log(funcobj1);
+    
+     for(i=0;i<dataArray[1].length;i++)
+        {  
+          funcobj2.push({
+          'Filename':filename[i],
+          'Value':parseFloat(dataArray[1][i])
+          });
+        }
+     console.log(funcobj2);
+    
+     for(i=0;i<dataArray[2].length;i++)
+        {  
+          funcobj3.push({
+          'Filename':filename[i],
+          'Value':parseFloat(dataArray[2][i])
+          });
+        }
+     console.log(funcobj3);
+
+     for(i=0;i<dataArray[3].length;i++)
+        {  
+          funcobj4.push({
+          'Filename':filename[i],
+          'Value':parseFloat(dataArray[3][i])
+          });
+        }
+     console.log(funcobj4);
+
+     for(i=0;i<dataArray[4].length;i++)
+        {  
+          funcobj5.push({
+          'Filename':filename[i],
+          'Value':parseFloat(dataArray[4][i])
+          });
+        }
+     console.log(funcobj5);
+ 
+     draw(res,funcobj1,funcobj2,funcobj3,funcobj4,funcobj5);
+
+      for(i=0;i<dataArray2[0].length;i++)
+        {  
+          funcobj21.push({
+          'Filename':filename[i],
+          'Value':parseFloat(dataArray2[0][i])
+          });
+        }
+     console.log(funcobj21);
+    
+     for(i=0;i<dataArray2[1].length;i++)
+        {  
+          funcobj22.push({
+          'Filename':filename[i],
+          'Value':parseFloat(dataArray2[1][i])
+          });
+        }
+     console.log(funcobj22);
+    
+     for(i=0;i<dataArray2[2].length;i++)
+        {  
+          funcobj23.push({
+          'Filename':filename[i],
+          'Value':parseFloat(dataArray2[2][i])
+          });
+        }
+     console.log(funcobj23);
+
+     for(i=0;i<dataArray2[3].length;i++)
+        {  
+          funcobj24.push({
+          'Filename':filename[i],
+          'Value':parseFloat(dataArray2[3][i])
+          });
+        }
+     console.log(funcobj24);
+
+     for(i=0;i<dataArray2[4].length;i++)
+        {  
+          funcobj25.push({
+          'Filename':filename[i],
+          'Value':parseFloat(dataArray2[4][i])
+          });
+        }
+     console.log(funcobj25);
+
+     draw(res2,funcobj21,funcobj22,funcobj23,funcobj24,funcobj25);
+
+function draw(res,funobj1,funcobj2,funcobj3,funcobj4,funcobj5)
+{ 
 var width = 500;
 var height = 300;
 var margin = 50;
-var duration = 250;
-
-var lineOpacity = "0.25";
-var lineOpacityHover = "0.85";
-var otherLinesOpacityHover = "0.1";
-var lineStroke = "1.5px";
-var lineStrokeHover = "2.5px";
-
-var circleOpacity = '0.85';
-var circleOpacityOnLineHover = "0.25"
-var circleRadius = 3;
-var circleRadiusHover = 6;
-
-
-/* Format Data */
-//var parseDate = d3.timeParse("%Y");
-//data.forEach(function(d) { 
-  //d.values.forEach(function(d) {
-    //d.date = parseDate(d.date);
-    //d.price = +d.price;    
-  //});
-//});
 
 
 /* Scale */
-var x1 = d3.scaleBand()
+var x = d3.scaleBand()
            .range([0,width])
            .padding(0.1);
 
-var y1 = d3.scaleLinear()
+var y = d3.scaleLinear()
        	   .range([height, 0]);
 
-x1.domain( names );
-y1.domain([0, d3.max(dataArray[x],function(d){return (d+(d/4));})]);
+ x.domain(filename);
 
-var color = d3.scaleOrdinal(d3.schemeCategory10);
-
+y.domain([0,max+5]);
 /* Add SVG */
 var svg = d3.select("#aggregatetempbg").append("svg")
-  .attr("width", (width+margin)+"px")
-  .attr("height", (height+margin)+"px")
+  .attr("width", ((width+100)+2*margin)+"px")
+  .attr("height", (height+2*margin)+"px")
   .append('g')
-  .attr("transform", `translate(${margin}, ${margin})`);
+  .attr("transform", `translate(${2*margin}, ${margin})`);
+
+var line1 = d3.line()
+            .x(function(d) {
+                return x(d.Filename)
+            })
+            .y(function(d) {
+                return y(d.Value)
+            });
+
+       
+	svg.append("g")
+  	    .attr("transform", "translate(0," + height + ")")
+  	    .call(d3.axisBottom(x));
+        svg.append("g").call(d3.axisLeft(y));
+        svg.append("path").datum(funcobj1).attr("fill", "none").attr("stroke",
+"red").attr("stroke-linejoin", "round").attr("stroke-linecap",
+"round").attr("stroke-width", 1.5).attr("d", line1);
+        svg.append("path").datum(funcobj2).attr("fill", "none").attr("stroke",
+"green").attr("stroke-linejoin", "round").attr("stroke-linecap",
+"round").attr("stroke-width", 1.5).attr("d", line1);
+        svg.append("path").datum(funcobj3).attr("fill", "none").attr("stroke",
+"black").attr("stroke-linejoin", "round").attr("stroke-linecap",
+"round").attr("stroke-width", 1.5).attr("d", line1);
+        svg.append("path").datum(funcobj4).attr("fill", "none").attr("stroke",
+"blue").attr("stroke-linejoin", "round").attr("stroke-linecap",
+"round").attr("stroke-width", 1.5).attr("d", line1);
+        svg.append("path").datum(funcobj5).attr("fill", "none").attr("stroke",
+"yellow").attr("stroke-linejoin", "round").attr("stroke-linecap",
+"round").attr("stroke-width", 1.5).attr("d", line1); 
+
+        //text label for x axis
+        svg.append("text").attr("transform","translate(" + (width/2) + "," + (height+40) + ")").style("text-anchor",
+"middle").text("Filename");
+
+        //text label for y axis
+        svg.append("text").attr("transform", "rotate(-90)").attr("y", 0 -
+margin).attr("x",0 - (height / 2)).attr("dy",
+"1em").style("text-anchor", "middle").text("Time");
+
+        //legend
+        var legend_keys = [res[0][0],res[1][0],res[2][0],res[3][0],res[4][0]];
+            var color = ["red","green","black","blue","yellow"];
+            var lineLegend = svg.selectAll(".lineLegend").data(legend_keys)
+                .enter().append("g")
+                .attr("class","lineLegend")
+                .attr("transform", function (d,i) {
+                        return "translate(" + (width+40) + "," + (i*20)+")";
+                    });
+            lineLegend.append("text").text(function (d) {return d;})
+                      .attr("transform", "translate(-60,9)"); //align texts with boxes
+            lineLegend.append("rect").attr("fill", function (d, i) {return color[i];})
+                      .attr("width", 10).attr("height", 10).attr("transform","translate(-80,0)");
+ 				
+
+}/*function closing tag of draw*/
 
 
-/* Add line into SVG */
-var line = d3.line()
-  .x(d => x1(names))
-  .y(d => y1(d));
-
-let lines = svg.append('g')
-  .attr('class', 'lines');
-/*Makes the lines*/
-lines.selectAll('.line-group')
-  .data(res).enter()
-  .append('g')
-  .attr('class', 'line-group')  
-  .append('path')
-  .attr('class', 'line')  
-  .attr('d', d => line(d))
-  .style('stroke', (d, i) => color(i))
-  .style('opacity', lineOpacity)
-  
-/* Add circles in the line */
-lines.selectAll("circle-group")
-  .data(res).enter()
-  .append("g")
-  .style("fill", (d, i) => color(i))
-  .selectAll("circle")
-  .data(d => d).enter()
-  .append("g")
-  .attr("class", "circle")  
-  .on("mouseover", function(d) {
-      d3.select(this)     
-        .style("cursor", "pointer")
-        .append("text")
-        .attr("class", "text")
-        .text(`${d}`)
-        .attr("x", d => x1(names) + 5)
-        .attr("y", d => y1(d.price) - 10);
-    })
-  .on("mouseout", function(d) {
-      d3.select(this)
-        .style("cursor", "none")  
-        .transition()
-        .duration(duration)
-        .selectAll(".text").remove();
-    })
-  .append("circle")
-  .attr("cx", d => x1(names))
-  .attr("cy", d => y1(d))
-  .attr("r", circleRadius)
-  .style('opacity', circleOpacity)
- 
-
-/* Add Axis into SVG */
-var xAxis = d3.axisBottom(x1).ticks(12);
-var yAxis = d3.axisLeft(y1).ticks(12);
-
-svg.append("g")
-  .attr("class", "x axis")
-  .attr("transform", `translate(0, ${height-margin})`)
-  .call(xAxis);
-
-svg.append("g")
-  .attr("class", "y axis")
-  .call(yAxis)
-  .append('text')
-  .attr("y", 15)
-  .attr("transform", "rotate(-90)")
-  .attr("fill", "#000");
-  //.text("Total values");
-
-}/*function closing tag*/
+}/*function closing tag of timeout*/
     setTimeout(timeout,1000);
 					   
   }); /*closing tag of addEvenListner*/

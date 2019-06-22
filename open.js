@@ -3,10 +3,10 @@ element.innerHTML = '<input type="file" multiple id="in" accept=".tsv" >';	     
 var fileInp = element.firstChild;
                                                    
 var fileSelect = document.getElementById("inp");
-var fileList = [];		/*-----Declares an empty array----*/
+
 
 fileInp.addEventListener('change', function (evnt)		/*-----Commands to be performed during the function----*/
-  {fileList=[];
+  { var fileList = [],names=[];		/*-----Declares an empty array----*/
     document.getElementById("openbg").innerHTML=" ";
     document.getElementById("pathtext").innerHTML=" ";
     document.getElementById("currentbg").innerHTML=" ";
@@ -15,12 +15,39 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
     //document.getElementById("newbg").innerHTML=" ";
     document.getElementById("aggregatesumbg").innerHTML=" ";
     document.getElementById("aggregatetempbg").innerHTML=" ";
-    document.getElementById("divtext").innerHTML=" ";
+    var val=document.getElementById("divtext");
+    if(val)
+    {document.getElementById("divtext").innerHTML=" ";}
     
     for (var i = 0,j = fileInp.files.length; i<j; i++) 
       {
   	fileList.push(fileInp.files[i]);		/*-----Pushes the element into the array-----*/
       }
+    fileList.forEach(function (file, index) 
+	  {  
+	     names.push((file.name).split('.').slice(0,-1).join('.'));
+	  });
+    var reA = /[^a-zA-Z]/g;
+    var reN = /[^0-9]/g;
+
+    function sortAlphaNum(a, b) 
+    {
+      var aA = a.replace(reA, "");
+      var bA = b.replace(reA, "");
+      if (aA === bA) 
+      {
+        var aN = parseInt(a.replace(reN, ""), 10);
+        var bN = parseInt(b.replace(reN, ""), 10);
+        return aN === bN ? 0 : aN > bN ? 1 : -1;
+      } 
+      else 
+      {
+        return aA > bA ? 1 : -1;
+      }
+    }
+    names=names.sort(sortAlphaNum);
+    var filelen=names.length;
+    var x=0;
 
   //files.sort();
     console.log(fileList);		/*-----Prints the fileList in the console-----*/
@@ -29,7 +56,7 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
     	var name=file.name;
     	console.log(name);		/*-----Prints the name of the file loaded in the console-----*/
 	                                		
-	d3.tsv("Data/" +name, function(data) 
+	d3.tsv("Data/" +names[x]+".tsv", function(data) 
 	  {    /* To get Data from external file we add cg.2.tsv and calls an 
 	                                          function where we pass the data from the file*/
 	    var width=350;
@@ -74,7 +101,7 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
         	     .attr("text-anchor", "middle")  
         	     .style("font-size", "16px") 
         	     .style("text-decoration", "underline")  
-        	     .text(name);
+        	     .text(names[x]+".tsv");
 					
             var arc = svg.selectAll(".arc")       /* selects all the Arc and creates an array  of Object*/
                        .data(pie(data))          /* the function pie(data) takes the data from the file and creates an object of that data as an Array*/
@@ -100,7 +127,7 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
                        .duration(50) 
                        .style("opacity", .9);	
             	   
-		    div.html("Label:" + d.data.Call + "<br/>" + "Site:" + d.data.Site + "<br/>"+  "MPI:" + d.data.MPI+ "<br/>" + "Time:" + d.data.Time+ "<br/>"+ "App:" + d.data.App + "<br/>" + "FileName:" + file.name )
+		    div.html("Label:" + d.data.Call + "<br/>" + "Site:" + d.data.Site + "<br/>"+  "MPI:" + d.data.MPI+ "<br/>" + "Time:" + d.data.Time+ "<br/>"+ "App:" + d.data.App + "<br/>"  )
 			    
                        .style("color","black")	
                        .style("margin","20px")				 
@@ -195,6 +222,7 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
    				  .style("fill", "none")
 			          .style("stroke", "black")
 			          .style("stroke-width", "1px");
+        x++;
 
         });		
 

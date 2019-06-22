@@ -6,42 +6,73 @@ var fileSelect1 = document.getElementById("cur");
 
 fileInput.addEventListener('change', function (evnt) 
   {
-    var fileList = [];
+    
+    document.getElementById("pathtext").innerHTML=" ";
+    document.getElementById("openbg").innerHTML=" ";
+    document.getElementById("currentbg").innerHTML=" ";
+    /*document.getElementById("refreshbg").innerHTML=" ";
+    document.getElementById("cleanbg").innerHTML=" ";
+    document.getElementById("newbg").innerHTML=" ";*/
+    document.getElementById("aggregatesumbg").innerHTML=" ";
+    document.getElementById("aggregatetempbg").innerHTML=" ";
+    var val=document.getElementById("divtext");
+    if(val)
+    {document.getElementById("divtext").innerHTML=" ";}
+    
+    var fileList = [],names=[],x,namesorg=[],s=0;
     for (var i = 0,j = fileInput.files.length; i<j; i++) 
       {
   	fileList.push(fileInput.files[i]);
 	
       }
-    
-    document.getElementById("pathtext").innerHTML=" ";
-    document.getElementById("openbg").innerHTML=" ";
-    document.getElementById("currentbg").innerHTML=" ";
-    document.getElementById("refreshbg").innerHTML=" ";
-    //document.getElementById("cleanbg").innerHTML=" ";
-    //document.getElementById("newbg").innerHTML=" ";
-    document.getElementById("aggregatesumbg").innerHTML=" ";
-    document.getElementById("aggregatetempbg").innerHTML=" ";
-    document.getElementById("divtext").innerHTML=" ";
 
-//console.log(fileList);
-
+    //console.log(fileList);
     fileList.forEach(function (file, index) 
+	  {  
+	     names.push((file.name).split('.').slice(0,-1).join('.'));
+	  });
+    var reA = /[^a-zA-Z]/g;
+    var reN = /[^0-9]/g;
+
+    function sortAlphaNum(a, b) 
+    {
+      var aA = a.replace(reA, "");
+      var bA = b.replace(reA, "");
+      if (aA === bA) 
       {
-    	var name=file.name;
-    	console.log(name);
-                                  // load the data		
-	d3.tsv("Data/" +name, function(data) 
+        var aN = parseInt(a.replace(reN, ""), 10);
+        var bN = parseInt(b.replace(reN, ""), 10);
+        return aN === bN ? 0 : aN > bN ? 1 : -1;
+      } 
+      else 
+      {
+        return aA > bA ? 1 : -1;
+      }
+    }
+    names=names.sort(sortAlphaNum);
+    var filelen=names.length;
+    x=filelen-6;
+    j=0;
+    for(i=filelen-6;i<filelen;i++)
+    {
+      namesorg[j]=names[i];
+      j++;
+    }
+    console.log(namesorg);
+    //fileList.forEach(function (file, index) 
+      //{
+    	console.log(x);
+                                 
+x=0; 	
+	while(x<6)    	
+        {
+         d3.tsv("Data/" +namesorg[x]+".tsv", function(data) 
 	  {    /* To get Data from external file we add cg.2.tsv and calls an 
-	                                          function where we pass the data from the file*/
+	                                        function where we pass the data from the file*/
+           
 	    var width=350;
 	    var height=280;
-
-            if ($('#currentbg svg').length === 6) 
-	    {
-        	$('#currentbg svg:first').remove()
-            }
-	  
-	  
+            
 	     var svg = d3.select("#currentbg").append("svg")
 	                 .attr("width", width)
                          .attr("height", height)
@@ -56,7 +87,7 @@ fileInput.addEventListener('change', function (evnt)
              var pie = d3.pie()         /*Creates the Layout For the Pie Chart*/
 		.value(function(d) 
 		  {         
-                    return d.MPI;       /*The pie chart contains the value of the MPI from tsv file and create the layout*/
+                    return d.Time;       /*The pie chart contains the value of the MPI from tsv file and create the layout*/
             	  });
 
              var path = d3.arc()                   /*Creates the Layout of an Arc*/
@@ -74,8 +105,8 @@ fileInput.addEventListener('change', function (evnt)
         	     .attr("text-anchor", "middle")  
         	     .style("font-size", "16px") 
         	     .style("text-decoration", "underline")  
-        	     .text(name);
-					
+        	     .text(namesorg[s]);
+	     s=s+1;				
             var arc = svg.selectAll(".arc")       /* selects all the Arc and creates an array  of Object*/
                        .data(pie(data))          /* the function pie(data) takes the data from the file and creates an object of that data as an Array*/
                        .enter().append("g")     /*If the data elements are more than the DOM elements we call the enter to update the data */
@@ -99,7 +130,7 @@ fileInput.addEventListener('change', function (evnt)
                        .duration(500) 
                        .style("opacity", .9);	
             	   
-		    div.html("Label:" + d.data.Call + "<br/>" + "Site:" + d.data.Site + "<br/>"+  "MPI:" + d.data.MPI+ "<br/>" + "Time:" + d.data.Time+ "<br/>"+ "App:" + d.data.App + "<br/>" + "FileName:" + file.name )
+		    div.html("Label:" + d.data.Call + "<br/>" + "Site:" + d.data.Site + "<br/>"+  "MPI:" + d.data.MPI+ "<br/>" + "Time:" + d.data.Time+ "<br/>"+ "App:" + d.data.App + "<br/>" )
 			    
                        .style("color","black")	
                        .style("margin","20px")				 
@@ -194,10 +225,12 @@ fileInput.addEventListener('change', function (evnt)
    				  .style("fill", "none")
 			          .style("stroke", "black")
 			          .style("stroke-width", "1px");
+       
 
-        });		
-
-    }); /*closing of the fileList array */
+        });	
+x++;	
+	}/*while loop*/
+ //  }); /*closing of the fileList array */
 
  /*else {
 
