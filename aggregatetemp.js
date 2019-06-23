@@ -1,11 +1,11 @@
-var funcobj1=[],funcobj2=[],funcobj3=[],funcobj4=[],funcobj5=[],max=0,filelen,func2=[],flag=0,flag2=0,res=[],res2=[],max2=0,dataArray2=[];
-var funcobj21=[],funcobj22=[],funcobj23=[],funcobj24=[],funcobj25=[];
 var elmnt2 = document.createElement('div');
 elmnt2.innerHTML = '<input type="file" id="bar2" accept=".tsv" webkitdirectory multiple >';
 var input_2 = elmnt2.firstChild;
 var select_2 = document.getElementById('temp');
 input_2.addEventListener('change', function (evnt) 
   {
+    var funcobj1=[],funcobj2=[],funcobj3=[],funcobj4=[],funcobj5=[],max=0,filelen,func2=[],func=[],flag=0,flag2=0,res=[],res2=[],max2=0,dataArray2=[];
+    var funcobj21=[],funcobj22=[],funcobj23=[],funcobj24=[],funcobj25=[];
     document.getElementById("pathtext").innerHTML=" ";
     document.getElementById("openbg").innerHTML=" ";
     document.getElementById("currentbg").innerHTML=" ";
@@ -13,7 +13,11 @@ input_2.addEventListener('change', function (evnt)
     //document.getElementById("cleanbg").innerHTML=" ";
     //document.getElementById("newbg").innerHTML=" ";
     document.getElementById("aggregatesumbg").innerHTML=" ";   
-    //document.getElementById("aggregatetempbg").innerHTML=" ";
+    document.getElementById("aggregatetempbg").innerHTML=" ";
+    var val=document.getElementById("divtext");
+    if(val)
+    {document.getElementById("divtext").innerHTML=" ";}
+
 
     var fileList = [],i,k,filename=[],len,l=3,m=0,n=0,flagi=0,t=0,o,q=0,x=0,label,s=0,st=0,dataArray=[],funclen,funclen2,flagi2=0;
     for (i = 0,j = input_2.files.length; i<j; i++) 
@@ -28,7 +32,7 @@ input_2.addEventListener('change', function (evnt)
     }
     filelen=fileList.length;
     console.log(fileList);
-    
+    	
     fileList.forEach(function (file, index) 
 	  {  
 	     filename.push((file.name).split('.').slice(0,-1).join('.'));
@@ -156,14 +160,14 @@ input_2.addEventListener('change', function (evnt)
         res[i]=func[i];
         dataArray[i]=new Array(filelen).fill(0);
       }
-      console.log(res);
+      //console.log(res);
 
        for(i=0;i<5;i++)
       {
         res2[i]=func2[i];
         dataArray2[i]=new Array(filelen).fill(0);
       }
-      console.log(res2);
+      //console.log(res2);
    
    
       x=0;
@@ -220,7 +224,7 @@ input_2.addEventListener('change', function (evnt)
           'Value':parseFloat(dataArray[1][i])
           });
         }
-     console.log(funcobj2);
+     //console.log(funcobj2);
     
      for(i=0;i<dataArray[2].length;i++)
         {  
@@ -229,7 +233,7 @@ input_2.addEventListener('change', function (evnt)
           'Value':parseFloat(dataArray[2][i])
           });
         }
-     console.log(funcobj3);
+     //console.log(funcobj3);
 
      for(i=0;i<dataArray[3].length;i++)
         {  
@@ -238,7 +242,7 @@ input_2.addEventListener('change', function (evnt)
           'Value':parseFloat(dataArray[3][i])
           });
         }
-     console.log(funcobj4);
+     //console.log(funcobj4);
 
      for(i=0;i<dataArray[4].length;i++)
         {  
@@ -247,9 +251,9 @@ input_2.addEventListener('change', function (evnt)
           'Value':parseFloat(dataArray[4][i])
           });
         }
-     console.log(funcobj5);
+     //console.log(funcobj5);
  
-     draw(res,funcobj1,funcobj2,funcobj3,funcobj4,funcobj5);
+     
 
       for(i=0;i<dataArray2[0].length;i++)
         {  
@@ -267,7 +271,7 @@ input_2.addEventListener('change', function (evnt)
           'Value':parseFloat(dataArray2[1][i])
           });
         }
-     console.log(funcobj22);
+     //console.log(funcobj22);
     
      for(i=0;i<dataArray2[2].length;i++)
         {  
@@ -276,7 +280,7 @@ input_2.addEventListener('change', function (evnt)
           'Value':parseFloat(dataArray2[2][i])
           });
         }
-     console.log(funcobj23);
+     //console.log(funcobj23);
 
      for(i=0;i<dataArray2[3].length;i++)
         {  
@@ -285,7 +289,7 @@ input_2.addEventListener('change', function (evnt)
           'Value':parseFloat(dataArray2[3][i])
           });
         }
-     console.log(funcobj24);
+     //console.log(funcobj24);
 
      for(i=0;i<dataArray2[4].length;i++)
         {  
@@ -294,11 +298,12 @@ input_2.addEventListener('change', function (evnt)
           'Value':parseFloat(dataArray2[4][i])
           });
         }
-     console.log(funcobj25);
+     //console.log(funcobj25);
+     var x1=[],x2=[],x3=[],x4=[],x5=[];     
+     draw(res,funcobj1,funcobj2,funcobj3,funcobj4,funcobj5,max);
+     draw(res2,funcobj21,funcobj22,funcobj23,funcobj24,funcobj25,max2);
 
-     draw(res2,funcobj21,funcobj22,funcobj23,funcobj24,funcobj25);
-
-function draw(res,funobj1,funcobj2,funcobj3,funcobj4,funcobj5)
+function draw(res,x1,x2,x3,x4,x5,max)
 { 
 var width = 500;
 var height = 300;
@@ -336,25 +341,25 @@ var line1 = d3.line()
   	    .attr("transform", "translate(0," + height + ")")
   	    .call(d3.axisBottom(x));
         svg.append("g").call(d3.axisLeft(y));
-        svg.append("path").datum(funcobj1).attr("fill", "none").attr("stroke",
+        svg.append("path").datum(x1).attr("fill", "none").attr("stroke",
 "red").attr("stroke-linejoin", "round").attr("stroke-linecap",
 "round").attr("stroke-width", 1.5).attr("d", line1);
-        svg.append("path").datum(funcobj2).attr("fill", "none").attr("stroke",
+        svg.append("path").datum(x2).attr("fill", "none").attr("stroke",
 "green").attr("stroke-linejoin", "round").attr("stroke-linecap",
 "round").attr("stroke-width", 1.5).attr("d", line1);
-        svg.append("path").datum(funcobj3).attr("fill", "none").attr("stroke",
+        svg.append("path").datum(x3).attr("fill", "none").attr("stroke",
 "black").attr("stroke-linejoin", "round").attr("stroke-linecap",
 "round").attr("stroke-width", 1.5).attr("d", line1);
-        svg.append("path").datum(funcobj4).attr("fill", "none").attr("stroke",
+        svg.append("path").datum(x4).attr("fill", "none").attr("stroke",
 "blue").attr("stroke-linejoin", "round").attr("stroke-linecap",
 "round").attr("stroke-width", 1.5).attr("d", line1);
-        svg.append("path").datum(funcobj5).attr("fill", "none").attr("stroke",
-"yellow").attr("stroke-linejoin", "round").attr("stroke-linecap",
+        svg.append("path").datum(x5).attr("fill", "none").attr("stroke",
+"orange").attr("stroke-linejoin", "round").attr("stroke-linecap",
 "round").attr("stroke-width", 1.5).attr("d", line1); 
 
         //text label for x axis
         svg.append("text").attr("transform","translate(" + (width/2) + "," + (height+40) + ")").style("text-anchor",
-"middle").text("Filename");
+"middle").text("Snapshots");
 
         //text label for y axis
         svg.append("text").attr("transform", "rotate(-90)").attr("y", 0 -
@@ -363,7 +368,7 @@ margin).attr("x",0 - (height / 2)).attr("dy",
 
         //legend
         var legend_keys = [res[0][0],res[1][0],res[2][0],res[3][0],res[4][0]];
-            var color = ["red","green","black","blue","yellow"];
+            var color = ["red","green","black","blue","orange"];
             var lineLegend = svg.selectAll(".lineLegend").data(legend_keys)
                 .enter().append("g")
                 .attr("class","lineLegend")
@@ -389,3 +394,4 @@ margin).attr("x",0 - (height / 2)).attr("dy",
 });
 
 								 
+
