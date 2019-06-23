@@ -229,8 +229,8 @@ while(x<5)
 	    .attr("y", 50)
       	    .attr("fill", "Black")
 	    .style("font-family","Times New Roman")
-	    .style("font-size","20px");
-	    //.text(label); 
+	    .style("font-size","20px")
+	    .text(label); 
 //console.log(label);
   	// add the y Axis
   	svg1.append("g")

@@ -4,7 +4,7 @@ var input_2 = elmnt2.firstChild;
 var select_2 = document.getElementById('temp');
 input_2.addEventListener('change', function (evnt) 
   {
-    var funcobj1=[],funcobj2=[],funcobj3=[],funcobj4=[],funcobj5=[],max=0,filelen,func2=[],func=[],flag=0,flag2=0,res=[],res2=[],max2=0,dataArray2=[];
+    var funcobj1=[],funcobj2=[],funcobj3=[],funcobj4=[],funcobj5=[],max=0,filelen,func2=[],func=[],flag=0,flag2=0,res=[],res2=[],max2=0;
     var funcobj21=[],funcobj22=[],funcobj23=[],funcobj24=[],funcobj25=[];
     document.getElementById("pathtext").innerHTML=" ";
     document.getElementById("openbg").innerHTML=" ";
@@ -18,7 +18,7 @@ input_2.addEventListener('change', function (evnt)
     if(val)
     {document.getElementById("divtext").innerHTML=" ";}
 
-    var texthead,texthead2;
+    var texthead,texthead2,dataArray2=[],nameno=[];
     var fileList = [],i,k,filename=[],len,l=3,m=0,n=0,flagi=0,t=0,o,q=0,x=0,label,s=0,st=0,dataArray=[],funclen,funclen2,flagi2=0;
     for (i = 0,j = input_2.files.length; i<j; i++) 
       {
@@ -56,6 +56,11 @@ input_2.addEventListener('change', function (evnt)
       }
     }
     filename=filename.sort(sortAlphaNum);
+    for(i=0;i<filename.length;i++)
+    {
+      nameno.push((filename[i]).split('.').pop());       
+    }
+    console.log(nameno);
     console.log(filename);
     fileList.forEach(function (file, index) 
 	  {  
@@ -212,7 +217,7 @@ input_2.addEventListener('change', function (evnt)
       for(i=0;i<dataArray[0].length;i++)
         {  
           funcobj1.push({
-          'Filename':filename[i],
+          'Filename':nameno[i],
           'Value':parseFloat(dataArray[0][i])
           });
         }
@@ -221,7 +226,7 @@ input_2.addEventListener('change', function (evnt)
      for(i=0;i<dataArray[1].length;i++)
         {  
           funcobj2.push({
-          'Filename':filename[i],
+          'Filename':nameno[i],
           'Value':parseFloat(dataArray[1][i])
           });
         }
@@ -230,7 +235,7 @@ input_2.addEventListener('change', function (evnt)
      for(i=0;i<dataArray[2].length;i++)
         {  
           funcobj3.push({
-          'Filename':filename[i],
+          'Filename':nameno[i],
           'Value':parseFloat(dataArray[2][i])
           });
         }
@@ -239,7 +244,7 @@ input_2.addEventListener('change', function (evnt)
      for(i=0;i<dataArray[3].length;i++)
         {  
           funcobj4.push({
-          'Filename':filename[i],
+          'Filename':nameno[i],
           'Value':parseFloat(dataArray[3][i])
           });
         }
@@ -248,7 +253,7 @@ input_2.addEventListener('change', function (evnt)
      for(i=0;i<dataArray[4].length;i++)
         {  
           funcobj5.push({
-          'Filename':filename[i],
+          'Filename':nameno[i],
           'Value':parseFloat(dataArray[4][i])
           });
         }
@@ -259,7 +264,7 @@ input_2.addEventListener('change', function (evnt)
       for(i=0;i<dataArray2[0].length;i++)
         {  
           funcobj21.push({
-          'Filename':filename[i],
+          'Filename':nameno[i],
           'Value':parseFloat(dataArray2[0][i])
           });
         }
@@ -268,7 +273,7 @@ input_2.addEventListener('change', function (evnt)
      for(i=0;i<dataArray2[1].length;i++)
         {  
           funcobj22.push({
-          'Filename':filename[i],
+          'Filename':nameno[i],
           'Value':parseFloat(dataArray2[1][i])
           });
         }
@@ -277,7 +282,7 @@ input_2.addEventListener('change', function (evnt)
      for(i=0;i<dataArray2[2].length;i++)
         {  
           funcobj23.push({
-          'Filename':filename[i],
+          'Filename':nameno[i],
           'Value':parseFloat(dataArray2[2][i])
           });
         }
@@ -286,7 +291,7 @@ input_2.addEventListener('change', function (evnt)
      for(i=0;i<dataArray2[3].length;i++)
         {  
           funcobj24.push({
-          'Filename':filename[i],
+          'Filename':nameno[i],
           'Value':parseFloat(dataArray2[3][i])
           });
         }
@@ -295,7 +300,7 @@ input_2.addEventListener('change', function (evnt)
      for(i=0;i<dataArray2[4].length;i++)
         {  
           funcobj25.push({
-          'Filename':filename[i],
+          'Filename':nameno[i],
           'Value':parseFloat(dataArray2[4][i])
           });
         }
@@ -319,7 +324,7 @@ var x = d3.scaleBand()
 var y = d3.scaleLinear()
        	   .range([height, 0]);
 
- x.domain(filename);
+ x.domain(nameno);
 
 y.domain([0,max+5]);
 /* Add SVG */
