@@ -18,7 +18,7 @@ input_2.addEventListener('change', function (evnt)
     if(val)
     {document.getElementById("divtext").innerHTML=" ";}
 
-
+    var texthead,texthead2;
     var fileList = [],i,k,filename=[],len,l=3,m=0,n=0,flagi=0,t=0,o,q=0,x=0,label,s=0,st=0,dataArray=[],funclen,funclen2,flagi2=0;
     for (i = 0,j = input_2.files.length; i<j; i++) 
       {
@@ -207,7 +207,8 @@ input_2.addEventListener('change', function (evnt)
       console.log(max2);	
       //console.log(dataArray);
       
-  
+      texthead="Time Profile of MPI Point-to-Point Communication";
+      texthead2="Time Profile of MPI Synchronization Functions";
       for(i=0;i<dataArray[0].length;i++)
         {  
           funcobj1.push({
@@ -299,11 +300,11 @@ input_2.addEventListener('change', function (evnt)
           });
         }
      //console.log(funcobj25);
-     var x1=[],x2=[],x3=[],x4=[],x5=[];     
-     draw(res,funcobj1,funcobj2,funcobj3,funcobj4,funcobj5,max);
-     draw(res2,funcobj21,funcobj22,funcobj23,funcobj24,funcobj25,max2);
+     var x1=[],x2=[],x3=[],x4=[],x5=[],textlabel;     
+     draw(res,funcobj1,funcobj2,funcobj3,funcobj4,funcobj5,max,texthead);
+     draw(res2,funcobj21,funcobj22,funcobj23,funcobj24,funcobj25,max2,texthead2);
 
-function draw(res,x1,x2,x3,x4,x5,max)
+function draw(res,x1,x2,x3,x4,x5,max,textlabel)
 { 
 var width = 500;
 var height = 300;
@@ -356,6 +357,10 @@ var line1 = d3.line()
         svg.append("path").datum(x5).attr("fill", "none").attr("stroke",
 "orange").attr("stroke-linejoin", "round").attr("stroke-linecap",
 "round").attr("stroke-width", 1.5).attr("d", line1); 
+
+
+        svg.append("text").attr("transform","translate(" + (width/2) + "," + (height-300) + ")").style("text-anchor",
+"middle").text(textlabel);
 
         //text label for x axis
         svg.append("text").attr("transform","translate(" + (width/2) + "," + (height+40) + ")").style("text-anchor",
