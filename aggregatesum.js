@@ -55,11 +55,6 @@ input_1.addEventListener('change', function (evnt)
       }
     }
     filename=filename.sort(sortAlphaNum);
-    for(i=0;i<filename.length;i++)
-    {
-      nameno.push(((filename[i]).split('.').pop()));       
-    }
-    console.log(nameno);
     console.log(filename);
     fileList.forEach(function (file, index) 
 	  {  
@@ -128,6 +123,13 @@ input_1.addEventListener('change', function (evnt)
         }
       }
       console.log(func);
+
+      for(i=0;i<filename.length;i++)
+    {
+      nameno.push(((filename[i]).split('.').pop()));       
+    }
+    console.log(nameno);
+
       for(i=0;i<5;i++)
       {
         res[i]=func[i][0];
@@ -251,7 +253,7 @@ while(x<5)
 	    .text("Time");
 	  
 	 
-	  var legend = svg1.selectAll('.legend')                     
+	/*  var legend = svg1.selectAll('.legend')                     
           		   .data(color.domain())                                   
           		   .enter()                                                
           		   .append('g')                                            
@@ -263,7 +265,7 @@ while(x<5)
             		       var horz = 18 * legendRectSize;                        
             		       var vert = i * height + offset;                       
             		       return 'translate(' + horz + ',' + vert + ')';        
-			      });                                                     
+			      });              */                                       
 
         
         x++;
@@ -368,6 +370,14 @@ function timeout()
         }
       }
       console.log(func);
+  
+      for(i=0;i<filename.length;i++)
+    {
+      var name=(filename[i]).split('.').slice(0,-1).join('.');
+      nameno.push(((name).split('.').pop()));       
+    }
+    console.log(nameno);
+
       for(i=0;i<5;i++)
       {
         res[i]=func[i][0];
@@ -519,4 +529,3 @@ setTimeout(timeout,1000);
  	
 }//function closing
 								 
-
