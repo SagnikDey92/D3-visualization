@@ -305,8 +305,8 @@ input_2.addEventListener('change', function (evnt)
           });
         }
      //console.log(funcobj25);
-	    
-     first=nameno[0];    
+    
+     first=nameno[0];
      last=nameno[filelen-1];
      var x1=[],x2=[],x3=[],x4=[],x5=[],textlabel;     
      draw(res,funcobj1,funcobj2,funcobj3,funcobj4,funcobj5,max,texthead);
@@ -477,3 +477,4 @@ margin).attr("x",0 - (height / 2)).attr("dy",
 });
 
 								 
+
