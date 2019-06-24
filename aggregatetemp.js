@@ -5,7 +5,7 @@ var select_2 = document.getElementById('temp');
 input_2.addEventListener('change', function (evnt) 
   {
     var funcobj1=[],funcobj2=[],funcobj3=[],funcobj4=[],funcobj5=[],max=0,filelen,func2=[],func=[],flag=0,flag2=0,res=[],res2=[],max2=0;
-    var funcobj21=[],funcobj22=[],funcobj23=[],funcobj24=[],funcobj25=[],last=0;
+    var funcobj21=[],funcobj22=[],funcobj23=[],funcobj24=[],funcobj25=[],last=0,first=0;
     document.getElementById("pathtext").innerHTML=" ";
     document.getElementById("openbg").innerHTML=" ";
     document.getElementById("currentbg").innerHTML=" ";
@@ -305,6 +305,8 @@ input_2.addEventListener('change', function (evnt)
           });
         }
      //console.log(funcobj25);
+	    
+     first=nameno[0];    
      last=nameno[filelen-1];
      var x1=[],x2=[],x3=[],x4=[],x5=[],textlabel;     
      draw(res,funcobj1,funcobj2,funcobj3,funcobj4,funcobj5,max,texthead);
@@ -319,7 +321,7 @@ var margin = 50;
 
 /* Scale */
 var x = d3.scaleLinear()
-          .domain([1,last])
+          .domain([first,last])
            .range([0,width]);
 
 var y = d3.scaleLinear()
