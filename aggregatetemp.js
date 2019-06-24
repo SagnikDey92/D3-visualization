@@ -5,7 +5,7 @@ var select_2 = document.getElementById('temp');
 input_2.addEventListener('change', function (evnt) 
   {
     var funcobj1=[],funcobj2=[],funcobj3=[],funcobj4=[],funcobj5=[],max=0,filelen,func2=[],func=[],flag=0,flag2=0,res=[],res2=[],max2=0;
-    var funcobj21=[],funcobj22=[],funcobj23=[],funcobj24=[],funcobj25=[];
+    var funcobj21=[],funcobj22=[],funcobj23=[],funcobj24=[],funcobj25=[],last=0;
     document.getElementById("pathtext").innerHTML=" ";
     document.getElementById("openbg").innerHTML=" ";
     document.getElementById("currentbg").innerHTML=" ";
@@ -58,7 +58,7 @@ input_2.addEventListener('change', function (evnt)
     filename=filename.sort(sortAlphaNum);
     for(i=0;i<filename.length;i++)
     {
-      nameno.push((filename[i]).split('.').pop());       
+      nameno.push(((filename[i]).split('.').pop()));       
     }
     console.log(nameno);
     console.log(filename);
@@ -165,14 +165,14 @@ input_2.addEventListener('change', function (evnt)
         res[i]=func[i];
         dataArray[i]=new Array(filelen).fill(0);
       }
-      //console.log(res);
+      console.log(res);
 
        for(i=0;i<5;i++)
       {
         res2[i]=func2[i];
         dataArray2[i]=new Array(filelen).fill(0);
       }
-      //console.log(res2);
+      console.log(res2);
    
    
       x=0;
@@ -221,7 +221,7 @@ input_2.addEventListener('change', function (evnt)
           'Value':parseFloat(dataArray[0][i])
           });
         }
-     console.log(funcobj1);
+     //console.log(funcobj1);
     
      for(i=0;i<dataArray[1].length;i++)
         {  
@@ -268,7 +268,7 @@ input_2.addEventListener('change', function (evnt)
           'Value':parseFloat(dataArray2[0][i])
           });
         }
-     console.log(funcobj21);
+     //console.log(funcobj21);
     
      for(i=0;i<dataArray2[1].length;i++)
         {  
@@ -305,6 +305,7 @@ input_2.addEventListener('change', function (evnt)
           });
         }
      //console.log(funcobj25);
+     last=nameno[filelen-1];
      var x1=[],x2=[],x3=[],x4=[],x5=[],textlabel;     
      draw(res,funcobj1,funcobj2,funcobj3,funcobj4,funcobj5,max,texthead);
      draw(res2,funcobj21,funcobj22,funcobj23,funcobj24,funcobj25,max2,texthead2);
@@ -317,21 +318,21 @@ var margin = 50;
 
 
 /* Scale */
-var x = d3.scaleBand()
-           .range([0,width])
-           .padding(0.1);
+var x = d3.scaleLinear()
+          .domain([1,last])
+           .range([0,width]);
 
 var y = d3.scaleLinear()
        	   .range([height, 0]);
 
- x.domain(nameno);
+// x.domain(nameno);
 
 y.domain([0,max+5]);
 /* Add SVG */
 var svg = d3.select("#aggregatetempbg").append("svg")
   .attr("width", ((width+100)+2*margin)+"px")
-  .attr("height", (height+2*margin)+"px")
-  .append('g')
+  .attr("height", (height+3*margin)+"px");
+var g = svg.append('g')
   .attr("transform", `translate(${2*margin}, ${margin})`);
 
 var line1 = d3.line()
@@ -341,49 +342,119 @@ var line1 = d3.line()
             .y(function(d) {
                 return y(d.Value)
             });
-
+//var xAxis = d3.axisBottom(x)
+  //.attr("transform", "translate(0,0)")
+  //.tickValues(x.domain().filter(function(d,i){ return d}));
        
-	svg.append("g")
+	g.append("g")
   	    .attr("transform", "translate(0," + height + ")")
-  	    .call(d3.axisBottom(x));
-        svg.append("g").call(d3.axisLeft(y));
-        svg.append("path").datum(x1).attr("fill", "none").attr("stroke",
+  	    .call(d3.axisBottom(x));    
+        g.append("g").call(d3.axisLeft(y));
+        g.append("path").datum(x1).attr("fill", "none").attr("stroke",
 "red").attr("stroke-linejoin", "round").attr("stroke-linecap",
 "round").attr("stroke-width", 1.5).attr("d", line1);
-        svg.append("path").datum(x2).attr("fill", "none").attr("stroke",
+        g.append("path").datum(x2).attr("fill", "none").attr("stroke",
 "green").attr("stroke-linejoin", "round").attr("stroke-linecap",
 "round").attr("stroke-width", 1.5).attr("d", line1);
-        svg.append("path").datum(x3).attr("fill", "none").attr("stroke",
+        g.append("path").datum(x3).attr("fill", "none").attr("stroke",
 "black").attr("stroke-linejoin", "round").attr("stroke-linecap",
 "round").attr("stroke-width", 1.5).attr("d", line1);
-        svg.append("path").datum(x4).attr("fill", "none").attr("stroke",
+        g.append("path").datum(x4).attr("fill", "none").attr("stroke",
 "blue").attr("stroke-linejoin", "round").attr("stroke-linecap",
 "round").attr("stroke-width", 1.5).attr("d", line1);
-        svg.append("path").datum(x5).attr("fill", "none").attr("stroke",
+        g.append("path").datum(x5).attr("fill", "none").attr("stroke",
 "orange").attr("stroke-linejoin", "round").attr("stroke-linecap",
 "round").attr("stroke-width", 1.5).attr("d", line1); 
 
 
-        svg.append("text").attr("transform","translate(" + (width/2) + "," + (height-300) + ")").style("text-anchor",
+        
+  var selectCircle = g.selectAll(".circle")
+    .data(x1)
+  var selectCircle2 = g.selectAll(".circle")
+    .data(x2)
+  var selectCircle3 = g.selectAll(".circle")
+    .data(x3)
+  var selectCircle4 = g.selectAll(".circle")
+    .data(x4)
+  var selectCircle5 = g.selectAll(".circle")
+    .data(x5)  
+
+
+  selectCircle.enter().append("circle")
+    .attr("class", "circle")
+    .attr("r", 3.5)
+    .attr("cx", function(d) {
+      return x(d.Filename)
+    })
+    .attr("cy", function(d) {
+      return y(d.Value)
+    })
+ 
+  selectCircle2.enter().append("circle")
+    .attr("class", "circle")
+    .attr("r", 3.5)
+    .attr("cx", function(d) {
+      return x(d.Filename)
+    })
+    .attr("cy", function(d) {
+      return y(d.Value)
+    })
+ 
+  
+  selectCircle3.enter().append("circle")
+    .attr("class", "circle")
+    .attr("r", 3.5)
+    .attr("cx", function(d) {
+      return x(d.Filename)
+    })
+    .attr("cy", function(d) {
+      return y(d.Value)
+    })
+ 
+  
+  selectCircle4.enter().append("circle")
+    .attr("class", "circle")
+    .attr("r", 3.5)
+    .attr("cx", function(d) {
+      return x(d.Filename)
+    })
+    .attr("cy", function(d) {
+      return y(d.Value)
+    })  
+
+  
+  selectCircle5.enter().append("circle")
+    .attr("class", "circle")
+    .attr("r", 3.5)
+    .attr("cx", function(d) {
+      return x(d.Filename)
+    })
+    .attr("cy", function(d) {
+      return y(d.Value)
+    })
+
+
+
+        g.append("text").attr("transform","translate(" + (width/2) + "," + (height-300) + ")").style("text-anchor",
 "middle").text(textlabel);
 
         //text label for x axis
-        svg.append("text").attr("transform","translate(" + (width/2) + "," + (height+40) + ")").style("text-anchor",
+        g.append("text").attr("transform","translate(" + (width/2) + "," + (height+40) + ")").style("text-anchor",
 "middle").text("Snapshots");
 
         //text label for y axis
-        svg.append("text").attr("transform", "rotate(-90)").attr("y", 0 -
+        g.append("text").attr("transform", "rotate(-90)").attr("y", 0 -
 margin).attr("x",0 - (height / 2)).attr("dy",
 "1em").style("text-anchor", "middle").text("Time");
 
         //legend
         var legend_keys = [res[0][0],res[1][0],res[2][0],res[3][0],res[4][0]];
             var color = ["red","green","black","blue","orange"];
-            var lineLegend = svg.selectAll(".lineLegend").data(legend_keys)
+            var lineLegend = g.selectAll(".lineLegend").data(legend_keys)
                 .enter().append("g")
                 .attr("class","lineLegend")
                 .attr("transform", function (d,i) {
-                        return "translate(" + (width+40) + "," + (i*20)+")";
+                        return "translate(" + (width+100) + "," + (i*20)+")";
                     });
             lineLegend.append("text").text(function (d) {return d;})
                       .attr("transform", "translate(-60,9)"); //align texts with boxes
@@ -404,4 +475,3 @@ margin).attr("x",0 - (height / 2)).attr("dy",
 });
 
 								 
-
