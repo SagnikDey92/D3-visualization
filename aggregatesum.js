@@ -19,7 +19,7 @@ var input_1 = elmnt.firstChild;
 var select_1 = document.getElementById('agr');	
 input_1.addEventListener('change', function (evnt) 
   { 
-    var fileList = [],i,k,filename=[],len,l=3,m=0,flag=0,flagi=0,t=0,o,q=0,x=0,label,s=0,st=0,dataArray=[];
+    var fileList = [],i,k,filename=[],len,l=3,m=0,flag=0,flagi=0,t=0,o,q=0,x=0,label,s=0,st=0,dataArray=[],nameno=[];
     for (i = 0,j = input_1.files.length; i<j; i++) 
       {
   	fileList.push(input_1.files[i]);
@@ -55,6 +55,11 @@ input_1.addEventListener('change', function (evnt)
       }
     }
     filename=filename.sort(sortAlphaNum);
+    for(i=0;i<filename.length;i++)
+    {
+      nameno.push(((filename[i]).split('.').pop()));       
+    }
+    console.log(nameno);
     console.log(filename);
     fileList.forEach(function (file, index) 
 	  {  
@@ -169,7 +174,7 @@ while(x<5)
   	    l=3;
 	    
 	    // Scale the range of the data in the domains
-  	    x1.domain( filename );
+  	    x1.domain( nameno );
   	    y1.domain([0, d3.max(dataArray[x],function(d){return (d+(d/4));})]);
 
   	    // append the rectangles for the bar chart
@@ -180,7 +185,7 @@ while(x<5)
       		.attr("x", function(d) 
 		  { 
 		    o=2*l;
-		    l=l+15;
+		    l=l+15.5;
 		    return o;
 		  })
       		.attr("width", x1.bandwidth())
@@ -207,7 +212,7 @@ while(x<5)
 	      .attr("x", function(d) 
 		  { 
 		    o=2*l;
-		    l=l+15;
+		    l=l+15.7;
 		    return o;
 		  })
 	      .attr("y", function(d) 
@@ -292,7 +297,7 @@ var val=document.getElementById("divtext");
 if(val)
 {document.getElementById("divtext").innerHTML=" ";}
 
-var flag=0,m=0,j=0;
+var flag=0,m=0,j=0,nameno=[];
 filelen=dataArray.length;
 //console.log(dataArray);
 console.log("HII");
@@ -413,7 +418,7 @@ function timeout()
   	    l=3;
 	    
 	    // Scale the range of the data in the domains
-  	    x1.domain( filename );
+  	    x1.domain( nameno );
   	    y1.domain([0, d3.max(dataArray[x],function(d){return (d+(d/4));})]);
 
   	    // append the rectangles for the bar chart
@@ -424,7 +429,7 @@ function timeout()
       		.attr("x", function(d) 
 		  { 
 		    o=2*l;
-		    l=l+15;
+		    l=l+15.5;
 		    return o;
 		  })
       		.attr("width", x1.bandwidth())
@@ -451,7 +456,7 @@ function timeout()
 	      .attr("x", function(d) 
 		  { 
 		    o=2*l;
-		    l=l+15;
+		    l=l+15.7;
 		    return o;
 		  })
 	      .attr("y", function(d) 
