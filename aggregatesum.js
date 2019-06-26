@@ -1,6 +1,18 @@
 var func=[],res=[5],filelen,x=0,i;
-
-function callevent()
+function sumfunc()
+  {
+    var fullpath=(sessionStorage.getItem("pathdir"));
+    if(fullpath)
+    {
+      noselectsum();
+    }
+    else
+    {
+      calleventsum();
+    }
+  }
+  
+function calleventsum()
 {
 document.getElementById("openbg").innerHTML=" ";
 document.getElementById("pathtext").innerHTML=" ";
@@ -285,7 +297,7 @@ select_1.addEventListener("click", function ()
 	});						   
 } 	     
 
-function noselect()
+function noselectsum()
 {
 document.getElementById("openbg").innerHTML=" ";
 document.getElementById("pathtext").innerHTML=" ";
@@ -301,8 +313,6 @@ if(val)
 
 var flag=0,m=0,j=0,nameno=[];
 filelen=dataArray.length;
-//console.log(dataArray);
-console.log("HII");
 for(i=0;i<50;i++)
 {
   func.push([0,0]);        
