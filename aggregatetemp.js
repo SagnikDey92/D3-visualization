@@ -1,11 +1,24 @@
+function tempfunc()
+  {
+    var fullpath=(sessionStorage.getItem("pathdir"));
+    if(fullpath)
+    {
+      noselecttemp();
+    }
+    else
+    {
+      
+      calleventtemp();
+    }
+  }
+function calleventtemp()
+{  
 var elmnt2 = document.createElement('div');
 elmnt2.innerHTML = '<input type="file" id="bar2" accept=".tsv" webkitdirectory multiple >';
 var input_2 = elmnt2.firstChild;
 var select_2 = document.getElementById('temp');
 input_2.addEventListener('change', function (evnt) 
   {
-    var funcobj1=[],funcobj2=[],funcobj3=[],funcobj4=[],funcobj5=[],max=0,filelen,func2=[],func=[],flag=0,flag2=0,res=[],res2=[],max2=0;
-    var funcobj21=[],funcobj22=[],funcobj23=[],funcobj24=[],funcobj25=[],last=0,first=0;
     document.getElementById("pathtext").innerHTML=" ";
     document.getElementById("openbg").innerHTML=" ";
     document.getElementById("currentbg").innerHTML=" ";
@@ -18,8 +31,9 @@ input_2.addEventListener('change', function (evnt)
     if(val)
     {document.getElementById("divtext").innerHTML=" ";}
 
-    var texthead,texthead2,dataArray2=[],nameno=[];
-    var fileList = [],i,k,filename=[],len,l=3,m=0,n=0,flagi=0,t=0,o,q=0,x=0,label,s=0,st=0,dataArray=[],funclen,funclen2,flagi2=0;
+    var texthead,texthead2,nameno=[],flag=0,flag2=0,filelen;
+    var fileList = [],i,k,filename=[],len,l=3,m=0,n=0,flagi=0,t=0,o,q=0,x=0,label,s=0,st=0,funclen,funclen2,flagi2=0;
+    var func2=[],func=[];
     for (i = 0,j = input_2.files.length; i<j; i++) 
       {
   	fileList.push(input_2.files[i]);
@@ -104,7 +118,7 @@ input_2.addEventListener('change', function (evnt)
 			n=n+1;
                         }
 		      }
-		   });
+		   }); /*Data for Each function closing tag*/
               funclen=m;
               funclen2=n;
               for(i=0;i<50;i++)
@@ -123,7 +137,7 @@ input_2.addEventListener('change', function (evnt)
 			  func2[i].push(d.Time);
 			  flagi2=1;
 			}
-		   });
+		   });/*Data for Each function closing tag*/
  		   if(flagi==0)
 		        {
 			  func[i].push("0");
@@ -133,15 +147,24 @@ input_2.addEventListener('change', function (evnt)
 			  func2[i].push("0");
 			}
 	           
-	      }
+	      } /*for loop closing tag*/
 	
-	     });
+	     }); /*d3 closing tag*/
 	     
              s++;	
-	   });	
- 
-
-
+	   }); /*fileList closing tag*/
+    dispcalltemp(func,func2,nameno,filelen);
+   					   
+  }); /*closing tag of addEvenListner*/
+					   
+    select_2.addEventListener("click", function () {  // wait for click on "select a file" button
+    input_2.click();
+});
+}
+    function dispcalltemp(func,func2,nameno,filelen)
+    {var funcobj1=[],funcobj2=[],funcobj3=[],funcobj4=[],funcobj5=[],max=0,res=[],res2=[],max2=0;
+    var funcobj21=[],funcobj22=[],funcobj23=[],funcobj24=[],funcobj25=[],last=0,first=0,dataArray2=[],dataArray=[];
+    
     function timeout()
     {
 
@@ -190,7 +213,7 @@ input_2.addEventListener('change', function (evnt)
         }
         x++;
       }
-
+      
 
       x=0;
       while(x<5)
@@ -469,12 +492,124 @@ margin).attr("x",0 - (height / 2)).attr("dy",
 
 }/*function closing tag of timeout*/
     setTimeout(timeout,1000);
-					   
-  }); /*closing tag of addEvenListner*/
-					   
-    select_2.addEventListener("click", function () {  // wait for click on "select a file" button
-    input_2.click();
-});
 
-								 
+}								 
+
+
+
+
+
+function noselecttemp()
+{
+    var func=[],func2=[];
+    var texthead,texthead2,nameno=[],flag=0,flag2=0,filelen;
+    var fileList = [],i,k,len,l=3,m=0,n=0,flagi=0,t=0,o,q=0,x=0,label,s=0,st=0,funclen,funclen2,flagi2=0;
+
+    document.getElementById("pathtext").innerHTML=" ";
+    document.getElementById("openbg").innerHTML=" ";
+    document.getElementById("currentbg").innerHTML=" ";
+    //document.getElementById("refreshbg").innerHTML=" ";
+    //document.getElementById("cleanbg").innerHTML=" ";
+    //document.getElementById("newbg").innerHTML=" ";
+    document.getElementById("aggregatesumbg").innerHTML=" ";   
+    document.getElementById("aggregatetempbg").innerHTML=" ";
+    var val=document.getElementById("divtext");
+    if(val)
+    {document.getElementById("divtext").innerHTML=" ";}  
+
+    filelen=dataArray.length;
+ 
+    for(i=0;i<50;i++)
+    {
+      func.push([0,0]);  
+      func2.push([0,0]);      
+    }
+
+    for(i=0;i<filename.length;i++)
+    {
+      var name=(filename[i]).split('.').slice(0,-1).join('.');
+      nameno.push(((name).split('.').pop()));      
+    }
+    console.log(nameno);
+
+    for(var i1=0;i1<dataArray.length;i1++)
+    {
+      var data=dataArray[i1];
+
+      data.forEach(function(d)
+		  {
+	  	    flag=0;
+                    flag1=0;
+		    for(i=0;i<50;i++)
+		    {
+		      if(func[i][0]==d.Call + "(" + d.Site + ")")
+		      {
+		        func[i][1]=func[i][1]+parseFloat(d.Time);	
+			flag=1;
+                        
+		      }
+                      
+                      if(func2[i][0]==d.Call + "(" + d.Site + ")")
+		      {
+		        func2[i][1]=func2[i][1]+parseFloat(d.Time);	
+			flag2=1;
+		      }
+ 
+		    }
+		    if(flag!=1)
+		      {
+                        if((((d.Call + "(" + d.Site + ")").toLowerCase().indexOf("send"))!=-1)||(((d.Call + "(" + d.Site + ")").toLowerCase().indexOf("rec"))!=-1))
+                        {
+			func[m][0]=(d.Call + "(" + d.Site + ")");
+		        func[m][1]=parseFloat(d.Time);
+			m=m+1;
+                        }
+                      }
+      
+                     if(flag2!=1)
+                       {    
+                        if((((d.Call + "(" + d.Site + ")").toLowerCase().indexOf("wait"))!=-1)||(((d.Call + "(" + d.Site + ")").toLowerCase().indexOf("barrier"))!=-1))
+                        {
+			func2[n][0]=(d.Call + "(" + d.Site + ")");
+		        func2[n][1]=parseFloat(d.Time);
+			n=n+1;
+                        }
+		      }
+		   }); /*Data for Each function closing tag*/
+//console.log(func);
+//console.log(func2);
+              funclen=m;
+              funclen2=n;
+              for(i=0;i<50;i++)
+	     {
+	       flagi=0;
+               flagi2=0;
+	       data.forEach(function(d)
+		  { 	  	
+		    if(func[i][0]==d.Call+ "(" +d.Site+ ")")
+		        { 
+			  func[i].push(d.Time);
+			  flagi=1;
+			}
+                    if(func2[i][0]==d.Call+ "(" +d.Site+ ")")
+		        { 
+			  func2[i].push(d.Time);
+			  flagi2=1;
+			}
+		   });/*Data for Each function closing tag*/
+ 		   if(flagi==0)
+		        {
+			  func[i].push("0");
+			}
+	           if(flagi2==0)
+		        {
+			  func2[i].push("0");
+			}
+	           
+	      } /*for loop closing tag*/
+
+	}/*outer for loop*/
+
+         dispcalltemp(func,func2,nameno,filelen);
+}
 
