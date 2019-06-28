@@ -156,7 +156,7 @@ select_1.addEventListener("click", function ()
         dataArray[i]=new Array(filelen).fill(0);
       }
       console.log(res);
-      
+x=0;      
 while(x<5)
       {
         j=0;
