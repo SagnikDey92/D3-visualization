@@ -1,7 +1,22 @@
+var s=0,namesorg=[];
+function currfunc()
+  {
+    var fullpath=(sessionStorage.getItem("pathdir"));
+    if(fullpath)
+    {
+      noselectcurr();
+    }
+    else
+    {
+      calleventcurr();
+    }
+  }
+function calleventcurr()
+{  
+var labelname;
 var element1 = document.createElement('div');
 element1.innerHTML = '<input type="file" multiple id="in" accept=".tsv" webkitdirectory multipe>';
-var fileInput = element1.firstChild;
-                                                   
+var fileInput = element1.firstChild;                                                  
 var fileSelect1 = document.getElementById("cur");
 
 fileInput.addEventListener('change', function (evnt) 
@@ -19,7 +34,7 @@ fileInput.addEventListener('change', function (evnt)
     if(val)
     {document.getElementById("divtext").innerHTML=" ";}
     
-    var fileList = [],names=[],x,namesorg=[],s=0;
+    var fileList = [],names=[],x,s=0;
     for (var i = 0,j = fileInput.files.length; i<j; i++) 
       {
   	fileList.push(fileInput.files[i]);
@@ -61,7 +76,7 @@ fileInput.addEventListener('change', function (evnt)
     console.log(namesorg);
     //fileList.forEach(function (file, index) 
       //{
-    	console.log(x);
+    	//console.log(x);
                                  
 x=0; 	
 	while(x<6)    	
@@ -69,7 +84,30 @@ x=0;
          d3.tsv("Data/" +namesorg[x]+".tsv", function(data) 
 	  {    /* To get Data from external file we add cg.2.tsv and calls an 
 	                                        function where we pass the data from the file*/
-           
+		            
+		dispcallcurr("0",data);
+	   
+        });	
+x++;	
+	}/*while loop*/
+
+  });	/*closing tap of the event listener*/	
+			
+fileSelect1.addEventListener("click", function () 
+	{  // wait for click on "select a file" button
+           fileInput.click();
+});
+
+}/*function*/
+
+	    function dispcallcurr(labelname,data)
+            {
+            if(labelname=="0")
+	    {
+             labelname=namesorg[s];
+             console.log(namesorg[s]);
+	     s++;
+            }
 	    var width=350;
 	    var height=280;
             
@@ -105,8 +143,8 @@ x=0;
         	     .attr("text-anchor", "middle")  
         	     .style("font-size", "16px") 
         	     .style("text-decoration", "underline")  
-        	     .text(namesorg[s]);
-	     s=s+1;				
+        	     .text(labelname);
+	     //s=s+1;				
             var arc = svg.selectAll(".arc")       /* selects all the Arc and creates an array  of Object*/
                        .data(pie(data))          /* the function pie(data) takes the data from the file and creates an object of that data as an Array*/
                        .enter().append("g")     /*If the data elements are more than the DOM elements we call the enter to update the data */
@@ -225,21 +263,32 @@ x=0;
    				  .style("fill", "none")
 			          .style("stroke", "black")
 			          .style("stroke-width", "1px");
-       
+       }/*function dispcallcurr*/
 
-        });	
-x++;	
-	}/*while loop*/
- //  }); /*closing of the fileList array */
 
- /*else {
+function noselectcurr()
+{
+    document.getElementById("pathtext").innerHTML=" ";
+    document.getElementById("openbg").innerHTML=" ";
+    document.getElementById("currentbg").innerHTML=" ";
+    /*document.getElementById("refreshbg").innerHTML=" ";
+    document.getElementById("cleanbg").innerHTML=" ";
+    document.getElementById("newbg").innerHTML=" ";*/
+    document.getElementById("aggregatesumbg").innerHTML=" ";
+    document.getElementById("aggregatetempbg").innerHTML=" ";
+    var val=document.getElementById("divtext");
+    if(val)
+    {document.getElementById("divtext").innerHTML=" ";}
+    
 
-        alert("File not supported, .txt or .tsv files only");
+  var l=fileLength-6;
+  for(i=fileLength-6;i<fileLength;i++)
+    {
+      var data=[];
+      data=dataArray[i];
+      var labelname=((filename[i]).split('.').slice(0,-1).join('.'));
+      dispcallcurr(labelname,data);
+    }
 
-    }*/
-  });	/*closing tap of the event listener*/	
-			
-fileSelect1.addEventListener("click", function () 
-	{  // wait for click on "select a file" button
-           fileInput.click();
-	});
+}
+

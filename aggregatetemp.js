@@ -1,3 +1,4 @@
+/*The tempfunc function is to check whether the user has entered path in the homepage.If the user has entered the path then the dialog box to choose the files shouldn't be displayed else the dialog box should be displayed*/
 function tempfunc()
   {
     var fullpath=(sessionStorage.getItem("pathdir"));
@@ -6,13 +7,14 @@ function tempfunc()
       noselecttemp();
     }
     else
-    {
-      
+    {     
       calleventtemp();
     }
   }
+/*The calleventtemp function is used to display the dialog box and let the user to choose the folder*/
 function calleventtemp()
 {  
+
 var elmnt2 = document.createElement('div');
 elmnt2.innerHTML = '<input type="file" id="bar2" accept=".tsv" webkitdirectory multiple >';
 var input_2 = elmnt2.firstChild;
@@ -29,30 +31,32 @@ input_2.addEventListener('change', function (evnt)
     document.getElementById("aggregatetempbg").innerHTML=" ";
     var val=document.getElementById("divtext");
     if(val)
-    {document.getElementById("divtext").innerHTML=" ";}
+    {console.log("HII"); document.getElementById("divtext").innerHTML=" ";}
 
     var texthead,texthead2,nameno=[],flag=0,flag2=0,filelen;
     var fileList = [],i,k,filename=[],len,l=3,m=0,n=0,flagi=0,t=0,o,q=0,x=0,label,s=0,st=0,funclen,funclen2,flagi2=0;
     var func2=[],func=[];
     for (i = 0,j = input_2.files.length; i<j; i++) 
       {
-  	fileList.push(input_2.files[i]);
+  	fileList.push(input_2.files[i]);/*Used to push the files present in the folder in an array*/
   	
       }
     for(i=0;i<50;i++)
     {
-      func.push([0,0]);  
-      func2.push([0,0]);      
+      func.push([0,0]);  /*Initalizing array with 0*/
+      func2.push([0,0]); /*Initalizing array with 0*/     
     }
     filelen=fileList.length;
     console.log(fileList);
     	
     fileList.forEach(function (file, index) 
 	  {  
-	     filename.push((file.name).split('.').slice(0,-1).join('.'));
+	     filename.push((file.name).split('.').slice(0,-1).join('.'));/*Splitting the extension of the files and pushing it in an array*/
 	  });
     var reA = /[^a-zA-Z]/g;
     var reN = /[^0-9]/g;
+
+/*sortAplhaNum function is used to sort the alphnumeric strings*/
 
     function sortAlphaNum(a, b) 
     {
@@ -69,10 +73,10 @@ input_2.addEventListener('change', function (evnt)
         return aA > bA ? 1 : -1;
       }
     }
-    filename=filename.sort(sortAlphaNum);
+    filename=filename.sort(sortAlphaNum);/*Calling the sortAphNum function to sort the filenames in ascending order*/
     for(i=0;i<filename.length;i++)
     {
-      nameno.push(((filename[i]).split('.').pop()));       
+      nameno.push(((filename[i]).split('.').pop()));/*Splitting the cg in filename inorder to display the number present in the filename alone*/             
     }
     console.log(nameno);
     console.log(filename);
@@ -88,20 +92,20 @@ input_2.addEventListener('change', function (evnt)
 		    {
 		      if(func[i][0]==d.Call + "(" + d.Site + ")")
 		      {
-		        func[i][1]=func[i][1]+parseFloat(d.Time);	
+		        func[i][1]=func[i][1]+parseFloat(d.Time);/*Used to calculate the sum of each function present in all files to determine the most time consuming*/	
 			flag=1;
 		      }
                       
                       if(func2[i][0]==d.Call + "(" + d.Site + ")")
 		      {
-		        func2[i][1]=func2[i][1]+parseFloat(d.Time);	
+		        func2[i][1]=func2[i][1]+parseFloat(d.Time);/*Used to add the distinct functions*/	
 			flag2=1;
 		      }
  
 		    }
 		    if(flag!=1)
 		      {
-                        if((((d.Call + "(" + d.Site + ")").toLowerCase().indexOf("send"))!=-1)||(((d.Call + "(" + d.Site + ")").toLowerCase().indexOf("rec"))!=-1))
+                        if((((d.Call + "(" + d.Site + ")").toLowerCase().indexOf("send"))!=-1)||(((d.Call + "(" + d.Site + ")").toLowerCase().indexOf("rec"))!=-1))/*If the function is send or recieve it will be stored in func array*/
                         {
 			func[m][0]=(d.Call + "(" + d.Site + ")");
 		        func[m][1]=parseFloat(d.Time);
@@ -111,7 +115,7 @@ input_2.addEventListener('change', function (evnt)
       
                      if(flag2!=1)
                        {    
-                        if((((d.Call + "(" + d.Site + ")").toLowerCase().indexOf("wait"))!=-1)||(((d.Call + "(" + d.Site + ")").toLowerCase().indexOf("barrier"))!=-1))
+                        if((((d.Call + "(" + d.Site + ")").toLowerCase().indexOf("wait"))!=-1)||(((d.Call + "(" + d.Site + ")").toLowerCase().indexOf("barrier"))!=-1))/*If the function is wait or barrier it will be stored in func2 array*/
                         {
 			func2[n][0]=(d.Call + "(" + d.Site + ")");
 		        func2[n][1]=parseFloat(d.Time);
@@ -129,22 +133,22 @@ input_2.addEventListener('change', function (evnt)
 		  { 	  	
 		    if(func[i][0]==d.Call+ "(" +d.Site+ ")")
 		        { 
-			  func[i].push(d.Time);
+			  func[i].push(d.Time);/*Used to push the time of each function in each file*/
 			  flagi=1;
 			}
                     if(func2[i][0]==d.Call+ "(" +d.Site+ ")")
 		        { 
-			  func2[i].push(d.Time);
+			  func2[i].push(d.Time);/*Used to push the time of each function in each file*/
 			  flagi2=1;
 			}
 		   });/*Data for Each function closing tag*/
  		   if(flagi==0)
 		        {
-			  func[i].push("0");
+			  func[i].push("0");/*If there is no function in a file 0 is added to the particular function*/
 			}
 	           if(flagi2==0)
 		        {
-			  func2[i].push("0");
+			  func2[i].push("0");/*If there is no function in a file 0 is added to the particular function*/
 			}
 	           
 	      } /*for loop closing tag*/
@@ -153,7 +157,7 @@ input_2.addEventListener('change', function (evnt)
 	     
              s++;	
 	   }); /*fileList closing tag*/
-    dispcalltemp(func,func2,nameno,filelen);
+    dispcalltemp(func,func2,nameno,filelen);/*Calling the dispcalltemp function to display the line chart*/
    					   
   }); /*closing tag of addEvenListner*/
 					   
@@ -168,8 +172,8 @@ input_2.addEventListener('change', function (evnt)
     function timeout()
     {
 
-      func2.sort(sortfunction);       
-      func.sort(sortfunction);
+      func2.sort(sortfunction); /*Sorting the func array in descending order to determine the top 5 time consuming functions*/      
+      func.sort(sortfunction);/*Sorting the func2 array in descending order to determine the top 5 time consuming functions*/
       function sortfunction(a,b)
       {
         if(a[1]===b[1])
@@ -185,14 +189,14 @@ input_2.addEventListener('change', function (evnt)
        console.log(func2);
       for(i=0;i<5;i++)
       {
-        res[i]=func[i];
+        res[i]=func[i];/*Consists of top 5 functions along with the time in each file*/
         dataArray[i]=new Array(filelen).fill(0);
       }
       console.log(res);
 
        for(i=0;i<5;i++)
       {
-        res2[i]=func2[i];
+        res2[i]=func2[i];/*Consists of top 5 functions along with the time in each file*/
         dataArray2[i]=new Array(filelen).fill(0);
       }
       console.log(res2);
@@ -204,7 +208,7 @@ input_2.addEventListener('change', function (evnt)
         for(i=2;i<filelen+2;i++)
         {
           dataArray[x][j]=(parseFloat(func[x][i]));
-          if(dataArray[x][j]>max)
+          if(dataArray[x][j]>max)/*Determining the maximum time of the func array to set the y domain*/
           {
             max=dataArray[x][j];
 
@@ -221,7 +225,7 @@ input_2.addEventListener('change', function (evnt)
         for(i=2;i<filelen+2;i++)
         {
           dataArray2[x][j]=(parseFloat(func2[x][i]));
-          if(dataArray2[x][j]>max2)
+          if(dataArray2[x][j]>max2)/*Determining the maximum time of the func2 array to set the y domain*/
           {
             max2=dataArray[x][j];
 
@@ -237,6 +241,7 @@ input_2.addEventListener('change', function (evnt)
       
       texthead="Time Profile of MPI Point-to-Point Communication";
       texthead2="Time Profile of MPI Synchronization Functions";
+      /*Creating associative arrays to retrieve the values in line chart*/
       for(i=0;i<dataArray[0].length;i++)
         {  
           funcobj1.push({
@@ -332,8 +337,8 @@ input_2.addEventListener('change', function (evnt)
      first=nameno[0];
      last=nameno[filelen-1];
      var x1=[],x2=[],x3=[],x4=[],x5=[],textlabel;     
-     draw(res,funcobj1,funcobj2,funcobj3,funcobj4,funcobj5,max,texthead);
-     draw(res2,funcobj21,funcobj22,funcobj23,funcobj24,funcobj25,max2,texthead2);
+     draw(res,funcobj1,funcobj2,funcobj3,funcobj4,funcobj5,max,texthead);/*Calling the draw function to display the line chart*/
+     draw(res2,funcobj21,funcobj22,funcobj23,funcobj24,funcobj25,max2,texthead2);/*Calling the draw function to display the line chart*/
 
 function draw(res,x1,x2,x3,x4,x5,max,textlabel)
 { 
@@ -391,7 +396,7 @@ var line1 = d3.line()
 "orange").attr("stroke-linejoin", "round").attr("stroke-linecap",
 "round").attr("stroke-width", 1.5).attr("d", line1); 
 
-
+  /*Used to add circles*/
         
   var selectCircle = g.selectAll(".circle")
     .data(x1)
@@ -459,7 +464,7 @@ var line1 = d3.line()
     })
 
 
-
+        //text label for displaying the name of the line chart
         g.append("text").attr("transform","translate(" + (width/2) + "," + (height-300) + ")").style("text-anchor",
 "middle").text(textlabel);
 
@@ -491,18 +496,14 @@ margin).attr("x",0 - (height / 2)).attr("dy",
 
 
 }/*function closing tag of timeout*/
-    setTimeout(timeout,1000);
+    setTimeout(timeout,1000);/*Setting timeout in order to process the results*/
 
-}								 
-
-
-
-
-
+}								
+/*Function to directly display the line charts if the user has given the path directory*/
 function noselecttemp()
 {
     var func=[],func2=[];
-    var texthead,texthead2,nameno=[],flag=0,flag2=0,filelen;
+    var texthead,texthead2,nameno=[],flag=0,flag2=0,filelen,filename2=[];
     var fileList = [],i,k,len,l=3,m=0,n=0,flagi=0,t=0,o,q=0,x=0,label,s=0,st=0,funclen,funclen2,flagi2=0;
 
     document.getElementById("pathtext").innerHTML=" ";
@@ -526,11 +527,17 @@ function noselecttemp()
     }
 
     for(i=0;i<filename.length;i++)
-    {
-      var name=(filename[i]).split('.').slice(0,-1).join('.');
-      nameno.push(((name).split('.').pop()));      
+    {console.log(filename[i]);
+      filename2.push((filename[i]).split('.').slice(0,-1).join('.'));        
     }
-    console.log(nameno);
+    
+    for(i=0;i<filename2.length;i++)
+    {
+      nameno.push(((filename2[i]).split('.').pop()));  
+  
+console.log(((filename2[i]).split('.').pop()));    
+    }
+    
 
     for(var i1=0;i1<dataArray.length;i1++)
     {

@@ -10,10 +10,20 @@ wss.on('connection', ((ws) => {
     //console.log(dirname);
      var dataArray=[];
 
-var fs=require('fs');
+     var fs=require('fs');
+     
      fs.readdir(dirname, function(err, filenames) 
       {
-	
+        if(err) 
+        {               
+            var Err = new Error();
+            Error.prepareStackTrace = function (err, stack) { return stack; };
+            console.log(Err.stack);
+            console.log(err);
+            
+        }
+        else
+        {
 	var collator=new Intl.Collator(undefined,{numeric:true,sensitivity:'base'});
 	filenames=filenames.sort(collator.compare)        
 	var len=filenames.length;        
@@ -36,9 +46,9 @@ var fs=require('fs');
 	    ws.send(JSON.stringify(data));
 
           });//readFile closing tag
-//console.log(dataArray);
+
          }); //foreach function
-	//}//for loop closing tag
+	}
       });//readdir closing tag
    
 ws.on('end', () => {
