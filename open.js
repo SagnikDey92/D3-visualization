@@ -1,12 +1,10 @@
+var s=0,namesopen=[];
 var element = document.createElement('div');		/*-----Creating a new variable named element-----*/
 element.innerHTML = '<input type="file" multiple id="in" accept=".tsv" >';	     /*-----Accepting multiple files with .tsv extension-----*/
-var fileInp = element.firstChild;
-                                                   
+var fileInp = element.firstChild;                                                   
 var fileSelect = document.getElementById("inp");
-
-
 fileInp.addEventListener('change', function (evnt)		/*-----Commands to be performed during the function----*/
-  { var fileList = [],names=[];		/*-----Declares an empty array----*/
+  { var fileListopen = [];		/*-----Declares an empty array----*/
     document.getElementById("openbg").innerHTML=" ";
     document.getElementById("pathtext").innerHTML=" ";
     document.getElementById("currentbg").innerHTML=" ";
@@ -18,14 +16,16 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
     var val=document.getElementById("divtext");
     if(val)
     {document.getElementById("divtext").innerHTML=" ";}
+     
     
+  
     for (var i = 0,j = fileInp.files.length; i<j; i++) 
       {
-  	fileList.push(fileInp.files[i]);		/*-----Pushes the element into the array-----*/
+  	fileListopen.push(fileInp.files[i]);		/*-----Pushes the element into the array-----*/
       }
-    fileList.forEach(function (file, index) 
+    fileListopen.forEach(function (file, index) 
 	  {  
-	     names.push((file.name).split('.').slice(0,-1).join('.'));
+	     namesopen.push((file.name).split('.').slice(0,-1).join('.'));
 	  });
     var reA = /[^a-zA-Z]/g;
     var reN = /[^0-9]/g;
@@ -45,20 +45,43 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
         return aA > bA ? 1 : -1;
       }
     }
-    names=names.sort(sortAlphaNum);
-    var filelen=names.length;
+    namesopen=namesopen.sort(sortAlphaNum);
+    var filelen=namesopen.length;
     var x=0;
 
   //files.sort();
-    console.log(fileList);		/*-----Prints the fileList in the console-----*/
-    fileList.forEach(function (file, index)
+    console.log(fileListopen);		/*-----Prints the fileList in the console-----*/
+    while(x<filelen)
       {
-    	var name=file.name;
-    	console.log(name);		/*-----Prints the name of the file loaded in the console-----*/
-	                                		
-	d3.tsv("Data/" +names[x]+".tsv", function(data) 
+    	d3.tsv("Data/" +namesopen[x]+".tsv", function(data) 
 	  {    /* To get Data from external file we add cg.2.tsv and calls an 
 	                                          function where we pass the data from the file*/
+            dispcallopen(0,data);
+          });
+          x++;
+      } /*closing of the while loop */
+
+ /*else {
+
+        alert("File not supported, .txt or .tsv files only");
+
+    }*/
+  });	/*closing tap of the event listener*/	
+			
+fileSelect.addEventListener("click", function () 
+	{  // wait for click on "select a file" button
+           fileInp.click();
+	});				                                		
+	
+        function dispcallopen(labelnameopen,data)
+	{
+          if(labelnameopen==0)
+	    {
+             labelnameopen=namesopen[s];
+             console.log(namesopen[s]);
+	     s++;
+            }
+
 	    var width=350;
 	    var height=280;
 
@@ -101,7 +124,7 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
         	     .attr("text-anchor", "middle")  
         	     .style("font-size", "16px") 
         	     .style("text-decoration", "underline")  
-        	     .text(names[x]+".tsv");
+        	     .text(labelnameopen);
 					
             var arc = svg.selectAll(".arc")       /* selects all the Arc and creates an array  of Object*/
                        .data(pie(data))          /* the function pie(data) takes the data from the file and creates an object of that data as an Array*/
@@ -169,7 +192,7 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
 			      })
 				
              		    .text(function(d,i)
-			       { 
+			       { 	
 				  return  d.data.Call + "(" + d.data.Site + ")" ;
 			       }); /*For adding the Text in the Pie Chart*/
 			  
@@ -222,20 +245,7 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
    				  .style("fill", "none")
 			          .style("stroke", "black")
 			          .style("stroke-width", "1px");
-        x++;
+        
 
-        });		
+        }		
 
-    }); /*closing of the fileList array */
-
- /*else {
-
-        alert("File not supported, .txt or .tsv files only");
-
-    }*/
-  });	/*closing tap of the event listener*/	
-			
-fileSelect.addEventListener("click", function () 
-	{  // wait for click on "select a file" button
-           fileInp.click();
-	});
