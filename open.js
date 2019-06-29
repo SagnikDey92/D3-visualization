@@ -5,6 +5,7 @@ var fileInp = element.firstChild;
 var fileSelect = document.getElementById("inp");
 fileInp.addEventListener('change', function (evnt)		/*-----Commands to be performed during the function----*/
   { var fileListopen = [];		/*-----Declares an empty array----*/
+    namesopen=[];
     document.getElementById("openbg").innerHTML=" ";
     document.getElementById("pathtext").innerHTML=" ";
     document.getElementById("currentbg").innerHTML=" ";
@@ -16,8 +17,6 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
     var val=document.getElementById("divtext");
     if(val)
     {document.getElementById("divtext").innerHTML=" ";}
-     
-    
   
     for (var i = 0,j = fileInp.files.length; i<j; i++) 
       {
@@ -48,11 +47,13 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
     namesopen=namesopen.sort(sortAlphaNum);
     var filelen=namesopen.length;
     var x=0;
+    s=0;
 
   //files.sort();
     console.log(fileListopen);		/*-----Prints the fileList in the console-----*/
-    while(x<filelen)
+    while(x<filelen && x<6)
       {
+
     	d3.tsv("Data/" +namesopen[x]+".tsv", function(data) 
 	  {    /* To get Data from external file we add cg.2.tsv and calls an 
 	                                          function where we pass the data from the file*/
