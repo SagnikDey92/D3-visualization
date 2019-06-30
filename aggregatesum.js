@@ -30,7 +30,7 @@ if(val)
 var elmnt = document.createElement('div');
 elmnt.innerHTML = '<input type="file" id="bar" accept=".tsv" webkitdirectory multiple >';
 var input_1 = elmnt.firstChild;
-var select_1 = document.getElementById('agr');	
+var select_1 = document.getElementById('sum');	
 input_1.addEventListener('change', function (evnt) 
   { 
     var fileListsum = [],i,k,filenamesum=[],len,l=3,m=0,flag=0,flagi=0,t=0,o,q=0,x=0,label,s=0,st=0;
