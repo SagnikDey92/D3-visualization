@@ -7,20 +7,20 @@ function tempfunc()
       noselecttemp();
     }
     else
-    {     
+    { console.log("1t");    
       calleventtemp();
     }
   }
 /*The calleventtemp function is used to display the dialog box and let the user to choose the folder*/
 function calleventtemp()
 {  
-
-var elmnt2 = document.createElement('div');
-elmnt2.innerHTML = '<input type="file" id="bar2" accept=".tsv" webkitdirectory multiple >';
-var input_2 = elmnt2.firstChild;
-var select_2 = document.getElementById('temp');
-input_2.addEventListener('change', function (evnt) 
-  {
+var tempelmnt = document.createElement('div');
+tempelmnt.innerHTML = '<input type="file" id="bar2" accept=".tsv" webkitdirectory multiple >';
+var tempinput = tempelmnt.firstChild;
+var tempselect = document.getElementById('temp');
+console.log("2t");
+tempinput.addEventListener('change', function (evnt) 
+  {console.log("4t");
     document.getElementById("pathtext").innerHTML=" ";
     document.getElementById("openbg").innerHTML=" ";
     document.getElementById("currentbg").innerHTML=" ";
@@ -36,9 +36,9 @@ input_2.addEventListener('change', function (evnt)
     var texthead,texthead2,nameno=[],flag=0,flag2=0,filelen;
     var fileList = [],i,k,filename=[],len,l=3,m=0,n=0,flagi=0,t=0,o,q=0,x=0,label,s=0,st=0,funclen,funclen2,flagi2=0;
     var func2=[],func=[];
-    for (i = 0,j = input_2.files.length; i<j; i++) 
+    for (i = 0,j = tempinput.files.length; i<j; i++) 
       {
-  	fileList.push(input_2.files[i]);/*Used to push the files present in the folder in an array*/
+  	fileList.push(tempinput.files[i]);/*Used to push the files present in the folder in an array*/
   	
       }
     for(i=0;i<50;i++)
@@ -161,8 +161,9 @@ input_2.addEventListener('change', function (evnt)
    					   
   }); /*closing tag of addEvenListner*/
 					   
-    select_2.addEventListener("click", function () {  // wait for click on "select a file" button
-    input_2.click();
+    tempselect.addEventListener("click", function () {  // wait for click on "select a file" button
+console.log("3t");
+    tempinput.click();
 });
 }
     function dispcalltemp(func,func2,nameno,filelen)
@@ -527,15 +528,13 @@ function noselecttemp()
     }
 
     for(i=0;i<filename.length;i++)
-    {console.log(filename[i]);
+    {
       filename2.push((filename[i]).split('.').slice(0,-1).join('.'));        
     }
     
     for(i=0;i<filename2.length;i++)
     {
-      nameno.push(((filename2[i]).split('.').pop()));  
-  
-console.log(((filename2[i]).split('.').pop()));    
+      nameno.push(((filename2[i]).split('.').pop()));      
     }
     
 
@@ -619,4 +618,3 @@ console.log(((filename2[i]).split('.').pop()));
 
          dispcalltemp(func,func2,nameno,filelen);
 }
-

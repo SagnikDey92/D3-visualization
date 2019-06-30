@@ -37,19 +37,19 @@ fileInput.addEventListener('change', function (evnt)
     var fileList = [],names=[],x,s=0;
     for (var i = 0,j = fileInput.files.length; i<j; i++) 
       {
-  	fileList.push(fileInput.files[i]);
+  	fileList.push(fileInput.files[i]); /*Used to push the files present in the folder in an array*/
 	
       }
 
     //console.log(fileList);
     fileList.forEach(function (file, index) 
 	  {  
-	     names.push((file.name).split('.').slice(0,-1).join('.'));
+	     names.push((file.name).split('.').slice(0,-1).join('.')); /*Splitting the extension of the files and pushing it in an array*/
 	  });
     var reA = /[^a-zA-Z]/g;
     var reN = /[^0-9]/g;
-
-    function sortAlphaNum(a, b) 
+/*sortAplhaNumcurr function is used to sort the alphnumeric strings*/
+    function sortAlphaNumcurr(a, b) 
     {
       var aA = a.replace(reA, "");
       var bA = b.replace(reA, "");
@@ -64,28 +64,25 @@ fileInput.addEventListener('change', function (evnt)
         return aA > bA ? 1 : -1;
       }
     }
-    names=names.sort(sortAlphaNum);
+    names=names.sort(sortAlphaNumcurr);/*Calling the sortAphNumcurr function to sort the filenames in ascending order*/
     var filelen=names.length;
     x=filelen-6;
     j=0;
     for(i=filelen-6;i<filelen;i++)
     {
-      namesorg[j]=names[i];
+      namesorg[j]=names[i];/*Taking the names of last six files present in the folder*/
       j++;
     }
     console.log(namesorg);
-    //fileList.forEach(function (file, index) 
-      //{
-    	//console.log(x);
-                                 
-x=0; 	
+                             
+        x=0;
+        s=0; 	
 	while(x<6)    	
         {
-         d3.tsv("Data/" +namesorg[x]+".tsv", function(data) 
-	  {    /* To get Data from external file we add cg.2.tsv and calls an 
-	                                        function where we pass the data from the file*/
+         d3.tsv("Data/" +namesorg[x]+".tsv", function(data) /*d3 function used to read the data present in the file*/
+	  {    
 		            
-		dispcallcurr("0",data);
+		dispcallcurr("0",data);/*Calling the dispcallcurr function to display the pie chart of last 6 files*/
 	   
         });	
 x++;	
@@ -98,14 +95,14 @@ fileSelect1.addEventListener("click", function ()
            fileInput.click();
 });
 
-}/*function*/
+}/*function closing tag*/
 
 	    function dispcallcurr(labelname,data)
             {
             if(labelname=="0")
 	    {
              labelname=namesorg[s];
-             console.log(namesorg[s]);
+             console.log(namesorg[s]);/*Inorder to differentiate from noselectcurr function and calleventcurr function.In case of noselectcurr function we need to display the names from the array as d3.tsv does not work as a loop*/
 	     s++;
             }
 	    var width=350;

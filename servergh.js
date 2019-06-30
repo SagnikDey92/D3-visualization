@@ -5,16 +5,16 @@ const wss = new WebSocketServer({ port: 8081});
 
 wss.on('connection', ((ws) => {
   ws.on('message', (message) => {
-    console.log(`received: ${message}`);	
+    console.log(`received: ${message}`)/*Printing the received message in the console*/;	
     var dirname=message;
     //console.log(dirname);
      var dataArray=[];
 
      var fs=require('fs');
      
-     fs.readdir(dirname, function(err, filenames) 
+     fs.readdir(dirname, function(err, filenames) /*Reading the contents present in the directory*/
       {
-        if(err) 
+        if(err) /*If any error is present in the path name the exception handler handles it */
         {               
             var Err = new Error();
             Error.prepareStackTrace = function (err, stack) { return stack; };
@@ -34,7 +34,7 @@ wss.on('connection', ((ws) => {
         
 	var filename=filenames[i];	
 	console.log(filename);
-        ws.send(filename);
+        ws.send(filename);/*Sends the filenames present in the directory*/
        }
 	var j=0,arr=[];
 		
@@ -42,8 +42,8 @@ wss.on('connection', ((ws) => {
         filenames.forEach(function(filename){       
 	fs.readFile(dirname +"/"+ filename, 'utf-8', function(err, data) 
 	  {	
-     	    data=d3.tsvParse(data);
-	    ws.send(JSON.stringify(data));
+     	    data=d3.tsvParse(data);/*Reads the data using d3.tsv function */
+	    ws.send(JSON.stringify(data));/*Sends the data back to the html site*/
 
           });//readFile closing tag
 

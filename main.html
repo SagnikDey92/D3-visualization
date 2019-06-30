@@ -84,7 +84,7 @@
   
     <div id="vl"></div>		<!-----The line dividing the display into two parts-----> 
 
-
+      <div id="headingbg"></div>
       <div id="openbg"> </div>
       <div id="currentbg"></div>
      <!-- <div id="heatmapbg"></div>
@@ -114,34 +114,27 @@
   
  
 <script>
-
 var fileLength=0;
 	
         var isResizing = false,lastDownX = 0;
-
         (function() {
             var container = document.getElementById("wrap"),
                 left = document.getElementById("floatleft"),
                 right = document.getElementById("floatright"),
                 handle = document.getElementById("vl");
-
             handle.onmousedown = function(e) {
                 isResizing = true;
                 lastDownX = e.clientX;
             };
-
             document.onmousemove = function(e) {
                 // we don't want to do anything if we aren't resizing.
                 if (!isResizing) {
                     return;
                 }
-
                 var offsetRight = container.clientWidth - (e.clientX - container.offsetLeft);
-
                 left.style.right = offsetRight + "px"; 
                 right.style.width = offsetRight + "px"; 
             }
-
             document.onmouseup = function(e) {
                 // stop resizing
                 isResizing = false;
@@ -149,31 +142,27 @@ var fileLength=0;
         })();
         
   var xpath,data=[],filename=[],k,dataArray=[];
-
   function myFunction() 
   {
     
     xpath = document.getElementById("mytext").value;
-    sessionStorage.setItem("pathdir",xpath);
+    sessionStorage.setItem("pathdir",xpath);/*Storing the path entered by the user*/
     document.getElementById("pathtext").innerHTML=" ";
   
     var ws = new WebSocket("ws://127.0.0.1:8081");
-
     ws.onopen = function (event) 
      {
        console.log('Connection is open ...');
-       ws.send(xpath);
+       ws.send(xpath);/*Sending the path entered by the user to the server*/
       };
-
     ws.onerror = function (err) 
      {
        console.log('err: ', err);
      };
-
     ws.onmessage = function (event) 
      {       
 	var k=(event.data).split('.').pop();
-	//console.log(k);
+	/*Check if the message received consists of filenames or data of the files,if the message consists of filename then add it to the array of filename else convert the data using eval and add it in dataArray*/
 	if(k==="tsv")
 	{
 	  filename.push(event.data);
@@ -184,21 +173,19 @@ var fileLength=0;
 	{
 	  data=eval(event.data);
           dataArray.push(data);
-	  disp();
+	  disp();/*Calling the disp function to display the last 6 files via pie chart*/
 	}
        
      };
-
     ws.onclose = function() 
      {
        console.log("Connection is closed...");
      };
-
   }
 function disp()
 {
   var l=fileLength-6;
-  if(dataArray.length==fileLength)
+  if(dataArray.length==fileLength)/*Determining if the data of all files has been received*/
   {console.log(dataArray);
    for(i=fileLength-6;i<fileLength;i++)
     {
@@ -219,13 +206,11 @@ function disp()
 	     var textOffset=6; 
  
              var color = d3.scaleOrdinal(["#0d0887", "#6a00a8","#cb4679", "#e16462","#fca636", "#fcce25"]); /*Sets the range of Color we want in the Pie Chart*/
-
              var pie = d3.pie()         /*Creates the Layout For the Pie Chart*/
 		.value(function(d) 
 		  {         
                     return d.Time;       /*The pie chart contains the value of the Time from tsv file and create the layout*/
             	  });
-
              var path = d3.arc()                   /*Creates the Layout of an Arc*/
                           .outerRadius(radius)       /*Sets An Outer Radius Of the Arc*/
                           .innerRadius(0);           /*Sets an inner Radius of an Arc and it is assigned as 0 so that we can get an shape of an Pie Chart*/
@@ -290,7 +275,6 @@ function disp()
         	   });
                      	
 		
-
 	     		 
               var labels=arc.append("text")   		 /*Adds the Label in the Arc*/
 			    .attr("transform", function(d)
@@ -345,7 +329,6 @@ function disp()
 		  {
       		    return d.startAngle + (d.endAngle - d.startAngle) / 2;
     		  }
-
     		var polyline = svg.selectAll("polyline")
       				  .data(pie(data), function(d) 
 				    {
@@ -363,14 +346,10 @@ function disp()
    				  .style("fill", "none")
 			          .style("stroke", "black")
 			          .style("stroke-width", "1px");
-
 l=l+1;
   }//for loop
  }//if loop
  }		
-
-
-
 </script>
 	
 </body>

@@ -8,13 +8,14 @@ function sumfunc()
       noselectsum();
     }
     else
-    {
+    {console.log("1s");
       calleventsum();
     }
   }
 /*The calleventsum function is used to display the dialog box and let the user to choose the folder*/  
 function calleventsum()
 {
+console.log("2s");
 funcsum=[];
 document.getElementById("openbg").innerHTML=" ";
 document.getElementById("pathtext").innerHTML=" ";
@@ -26,17 +27,17 @@ document.getElementById("aggregatesumbg").innerHTML=" ";
 document.getElementById("aggregatetempbg").innerHTML=" ";
 var val=document.getElementById("divtext");
 if(val)
-{console.log("hi"); document.getElementById("divtext").innerHTML=" ";}
-var elmnt = document.createElement('div');
-elmnt.innerHTML = '<input type="file" id="bar" accept=".tsv" webkitdirectory multiple >';
-var input_1 = elmnt.firstChild;
-var select_1 = document.getElementById('sum');	
-input_1.addEventListener('change', function (evnt) 
-  { 
+{document.getElementById("divtext").innerHTML=" ";}
+var elmntsum = document.createElement('div');
+elmntsum.innerHTML = '<input type="file" id="bar" accept=".tsv" webkitdirectory multiple >';
+var input_1sum = elmntsum.firstChild;
+var sumsel = document.getElementById('sum');	
+input_1sum.addEventListener('change', function (evnt) 
+  { console.log("4s");
     var fileListsum = [],i,k,filenamesum=[],len,l=3,m=0,flag=0,flagi=0,t=0,o,q=0,x=0,label,s=0,st=0;
-    for (i = 0,j = input_1.files.length; i<j; i++) 
+    for (i = 0,j = input_1sum.files.length; i<j; i++) 
       {
-  	fileListsum.push(input_1.files[i]); /*Used to push the files present in the folder in an array*/
+  	fileListsum.push(input_1sum.files[i]); /*Used to push the files present in the folder in an array*/
   	
       }
     for(i=0;i<50;i++)
@@ -119,9 +120,10 @@ input_1.addEventListener('change', function (evnt)
 	   });	
  dispcallsum(funcsum,filelen,filenamesum);/*Calling the dispcallsum function to display the bar chart*/
 }); /*closing tag of addEvenListner*/
-select_1.addEventListener("click", function () 
+sumsel.addEventListener("click", function () 
 	{  // wait for click on "select a file" button
-           input_1.click();
+console.log("3s");
+           input_1sum.click();
 	});						   
 } 	     
     function dispcallsum(funcsum,filelen,filenamesum)
@@ -129,10 +131,12 @@ select_1.addEventListener("click", function ()
     function timeout()
     {
       var namenosum=[],dataArraysum=[];
-      var heading = document.createElement('div');
+  /*    var heading = document.createElement('div');
       heading.setAttribute("id", "divtext");
+      heading.setAttributeNS(null, 'x', x);
+      heading.setAttributeNS(null, 'y', y);
       heading.innerHTML='<h4 style="text-align:center;"><font color="black">Most Time Consuming Functions</h4>';
-      document.body.appendChild(heading);
+      document.body.appendChild(heading);*/
 
       funcsum.sort(sortfunction);/*Sorting the funcsum array in descending order to determine the top 5 time consuming functions*/
       function sortfunction(a,b)
@@ -324,6 +328,7 @@ for(i=0;i<50;i++)
 for(var i=0;i<dataArray.length;i++)
 {
   var data=dataArray[i];
+console.log(data);
   data.forEach(function(d)
   {
     flag=0;
@@ -369,4 +374,3 @@ for(i=0;i<filename.length;i++)
 }
 dispcallsum(funcsum,filelen,filenamesum); 	
 }//function closing
-

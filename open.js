@@ -24,12 +24,12 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
       }
     fileListopen.forEach(function (file, index) 
 	  {  
-	     namesopen.push((file.name).split('.').slice(0,-1).join('.'));
+	     namesopen.push((file.name).split('.').slice(0,-1).join('.'));/*Splitting the extension of the files and pushing it in an array*/
 	  });
     var reA = /[^a-zA-Z]/g;
     var reN = /[^0-9]/g;
-
-    function sortAlphaNum(a, b) 
+/*sortAplhaNumopen function is used to sort the alphnumeric strings*/
+    function sortAlphaNumopen(a, b) 
     {
       var aA = a.replace(reA, "");
       var bA = b.replace(reA, "");
@@ -44,7 +44,7 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
         return aA > bA ? 1 : -1;
       }
     }
-    namesopen=namesopen.sort(sortAlphaNum);
+    namesopen=namesopen.sort(sortAlphaNumopen);
     var filelen=namesopen.length;
     var x=0;
     s=0;
