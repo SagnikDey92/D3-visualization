@@ -10,7 +10,7 @@ In the homepage we have a text box where the user is supposed to enter the direc
 
 The functions which currently work on the system are 
 
-->OPEN:-When we click on this button a dialog box appears where the user is allowed to select multiple files and display it.
+->OPEN:-When we click on this button a dialog box appears where the user is allowed to select multiple files and display it in bar chart.
 
 ->CURRENT:-This button displays the pie chart for the last 6 files in the directory. 
 
