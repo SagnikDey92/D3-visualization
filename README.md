@@ -28,8 +28,9 @@ The pre-requisites are as follows:
 ->Since we are using the functions of d3 we have to mention it in our html file using "<script src="https://d3js.org/d3.v5.js"></script>"
 
 ->The following steps are to be followed to install node server :-
-  1.sudo apt-get install npm
-  2.sudo apt-get install curl python-software-properties
-  3.curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-  4.sudo apt-get install -y nodejs
-  Sample Path:-/work/students/Deepcharran/D3-visualization/Data/
+
+    1.sudo apt-get install npm
+    2.sudo apt-get install curl python-software-properties
+    3.curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+    4.sudo apt-get install -y nodejs
+    Sample Path:-/work/students/Deepcharran/D3-visualization/Data/
