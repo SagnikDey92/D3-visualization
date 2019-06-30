@@ -6,7 +6,7 @@ The languages used to visualize the data are mainly HTML and JAVASCRIPT.
 
 We have implemented client-server model to some of the functions and the server is built with the help of node js.The data which is entered in the website is transferred to the server with the help of websockets. 
 
-In the homepage we have a text box where the user is supposed to enter the directory.If the user enters the directory and clicks any of the functions below(Except OPEN) ,then the data is retrieved with the help of directory which is entered by the user from the server and the corresponding function is executed without having the need to selected the folder from the dialog box once again.
+In the homepage we have a text box where the user is supposed to enter the directory.If the user enters the directory and clicks any of the functions below(Except OPEN) ,then the data is retrieved with the help of directory which is entered by the user from the server and the corresponding function is executed without having the need to select the folder from the dialog box once again.
 
 The functions which currently work on the system are 
 
