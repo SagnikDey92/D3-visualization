@@ -30,10 +30,19 @@ fileInput.addEventListener('change', function (evnt)
     document.getElementById("newbg").innerHTML=" ";*/
     document.getElementById("aggregatesumbg").innerHTML=" ";
     document.getElementById("aggregatetempbg").innerHTML=" ";
-    var val=document.getElementById("divtext");
-    if(val)
-    {document.getElementById("divtext").innerHTML=" ";}
-    
+    document.getElementById("headingbg").innerHTML=" ";
+ 
+    var headingsum=d3.select("#headingbg")
+                     .append("svg")
+                     .attr("width", 500)
+      	             .attr("height", 40)
+                     .attr("transform","translate(200,5)")
+                     .append("text")
+ 		     .attr("transform","translate(250,30)")
+                     .style("text-anchor","middle")
+                     .style("font-size","30px")
+                     .text("Pie Charts of last 6 files");    
+        
     var fileList = [],names=[],x,s=0;
     for (var i = 0,j = fileInput.files.length; i<j; i++) 
       {
@@ -273,11 +282,19 @@ function noselectcurr()
     document.getElementById("newbg").innerHTML=" ";*/
     document.getElementById("aggregatesumbg").innerHTML=" ";
     document.getElementById("aggregatetempbg").innerHTML=" ";
-    var val=document.getElementById("divtext");
-    if(val)
-    {document.getElementById("divtext").innerHTML=" ";}
+    document.getElementById("headingbg").innerHTML=" ";
     
-
+    var headingsum=d3.select("#headingbg")
+                     .append("svg")
+                     .attr("width", 500)
+      	             .attr("height", 40)
+                     .attr("transform","translate(200,5)")
+                     .append("text")
+ 		     .attr("transform","translate(250,30)")
+                     .style("text-anchor","middle")
+                     .style("font-size","30px")
+                     .text("Pie Charts of last 6 files");    
+  
   var l=fileLength-6;
   for(i=fileLength-6;i<fileLength;i++)
     {

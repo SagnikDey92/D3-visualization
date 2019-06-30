@@ -29,9 +29,7 @@ tempinput.addEventListener('change', function (evnt)
     //document.getElementById("newbg").innerHTML=" ";
     document.getElementById("aggregatesumbg").innerHTML=" ";   
     document.getElementById("aggregatetempbg").innerHTML=" ";
-    var val=document.getElementById("divtext");
-    if(val)
-    {console.log("HII"); document.getElementById("divtext").innerHTML=" ";}
+    document.getElementById("headingbg").innerHTML=" ";
 
     var texthead,texthead2,nameno=[],flag=0,flag2=0,filelen;
     var fileList = [],i,k,filename=[],len,l=3,m=0,n=0,flagi=0,t=0,o,q=0,x=0,label,s=0,st=0,funclen,funclen2,flagi2=0;
@@ -172,7 +170,18 @@ console.log("3t");
     
     function timeout()
     {
-
+     var headingsum=d3.select("#headingbg")
+                      .append("svg")
+                      .attr("width", 500)
+      	              .attr("height", 40)
+                      .attr("transform","translate(200,5)")
+                      .append("text")
+ 	   	      .attr("transform","translate(250,30)")
+                      .style("text-anchor","middle")
+                      .style("font-size","30px")
+                      .text("Line Charts");    
+          
+ 
       func2.sort(sortfunction); /*Sorting the func array in descending order to determine the top 5 time consuming functions*/      
       func.sort(sortfunction);/*Sorting the func2 array in descending order to determine the top 5 time consuming functions*/
       function sortfunction(a,b)
@@ -515,9 +524,7 @@ function noselecttemp()
     //document.getElementById("newbg").innerHTML=" ";
     document.getElementById("aggregatesumbg").innerHTML=" ";   
     document.getElementById("aggregatetempbg").innerHTML=" ";
-    var val=document.getElementById("divtext");
-    if(val)
-    {document.getElementById("divtext").innerHTML=" ";}  
+    document.getElementById("headingbg").innerHTML=" ";  
 
     filelen=dataArray.length;
  

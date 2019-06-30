@@ -25,9 +25,7 @@ document.getElementById("currentbg").innerHTML=" ";
 //document.getElementById("newbg").innerHTML=" ";
 document.getElementById("aggregatesumbg").innerHTML=" ";
 document.getElementById("aggregatetempbg").innerHTML=" ";
-var val=document.getElementById("divtext");
-if(val)
-{document.getElementById("divtext").innerHTML=" ";}
+document.getElementById("headingbg").innerHTML=" ";
 var elmntsum = document.createElement('div');
 elmntsum.innerHTML = '<input type="file" id="bar" accept=".tsv" webkitdirectory multiple >';
 var input_1sum = elmntsum.firstChild;
@@ -131,6 +129,16 @@ console.log("3s");
     function timeout()
     {
       var namenosum=[],dataArraysum=[];
+      var headingsum=d3.select("#headingbg")
+                       .append("svg")
+                       .attr("width", 500)
+    		       .attr("height", 40)
+                       .attr("transform","translate(200,5)")
+                       .append("text")
+ 		       .attr("transform","translate(250,30)")
+                       .style("text-anchor","middle")
+                       .style("font-size","30px")
+                       .text("Most Time Consuming Functions");
   /*    var heading = document.createElement('div');
       heading.setAttribute("id", "divtext");
       heading.setAttributeNS(null, 'x', x);
@@ -315,9 +323,7 @@ document.getElementById("currentbg").innerHTML=" ";
 //document.getElementById("newbg").innerHTML=" ";
 document.getElementById("aggregatesumbg").innerHTML=" ";
 document.getElementById("aggregatetempbg").innerHTML=" ";
-var val=document.getElementById("divtext");
-if(val)
-{document.getElementById("divtext").innerHTML=" ";}
+document.getElementById("headingbg").innerHTML=" ";
 
 var flag=0,m=0,j=0,namenosum=[],filenamesum=[];
 filelen=dataArray.length;

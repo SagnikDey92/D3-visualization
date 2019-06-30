@@ -14,9 +14,18 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
     //document.getElementById("newbg").innerHTML=" ";
     document.getElementById("aggregatesumbg").innerHTML=" ";
     document.getElementById("aggregatetempbg").innerHTML=" ";
-    var val=document.getElementById("divtext");
-    if(val)
-    {document.getElementById("divtext").innerHTML=" ";}
+    document.getElementById("headingbg").innerHTML=" ";
+
+    var headingsum=d3.select("#headingbg")
+                     .append("svg")
+                     .attr("width", 500)
+      	             .attr("height", 40)
+                     .attr("transform","translate(200,5)")
+                     .append("text")
+ 		     .attr("transform","translate(250,30)")
+                     .style("text-anchor","middle")
+                     .style("font-size","30px")
+                     .text("Pie Charts");    
   
     for (var i = 0,j = fileInp.files.length; i<j; i++) 
       {
