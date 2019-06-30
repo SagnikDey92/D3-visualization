@@ -1,57 +1,35 @@
-# D3: Data-Driven Documents
 
-<a href="https://d3js.org"><img src="https://d3js.org/logo.svg" align="left" hspace="10" vspace="6"></a>
 
-**D3** (or **D3.js**) is a JavaScript library for visualizing data using web standards. D3 helps you bring data to life using SVG, Canvas and HTML. D3 combines powerful visualization and interaction techniques with a data-driven approach to DOM manipulation, giving you the full capabilities of modern browsers and the freedom to design the right visual interface for your data.
+The aim of the project is to analyse the performance of programs through parallel computing with the help of D3.
 
-## Resources
+The languages used to visualize the data are mainly HTML and JAVASCRIPT.
 
-* [API Reference](https://github.com/d3/d3/blob/master/API.md)
-* [Release Notes](https://github.com/d3/d3/releases)
-* [Gallery](https://github.com/d3/d3/wiki/Gallery)
-* [Examples](https://bl.ocks.org/mbostock)
-* [Wiki](https://github.com/d3/d3/wiki)
+We have implemented client-server model to some of the functions and the server is built with the help of node js.The data which is entered in the website is transferred to the server with the help of websockets. 
 
-## Installing
+In the homepage we have a text box where the user is supposed to enter the directory.If the user enters the directory and clicks any of the functions below(Except OPEN) ,then the data is retrieved with the help of directory which is entered by the user from the server and the corresponding function is executed without having the need to selected the folder from the dialog box once again.
 
-If you use npm, `npm install d3`. Otherwise, download the [latest release](https://github.com/d3/d3/releases/latest). The released bundle supports anonymous AMD, CommonJS, and vanilla environments. You can load directly from [d3js.org](https://d3js.org), [CDNJS](https://cdnjs.com/libraries/d3), or [unpkg](https://unpkg.com/d3/). For example:
+The functions which currently work on the system are 
 
-```html
-<script src="https://d3js.org/d3.v5.js"></script>
-```
+->OPEN:-When we click on this button a dialog box appears where the user is allowed to select multiple files and display it.
 
-For the minified version:
+->CURRENT:-This button displays the pie chart for the last 6 files in the directory. 
 
-```html
-<script src="https://d3js.org/d3.v5.min.js"></script>
-```
+->ANALYSIS:-This consists of two sub buttons:-
 
-You can also use the standalone D3 microlibraries. For example, [d3-selection](https://github.com/d3/d3-selection):
+    1.Temporal:-This button is used to display the line charts of top 5 time consuming Point-to-Point Communication functions and                     
+                Synchronization functions.
+               
+    2.Aggregate(Sum):-This button is used to display the bar charts of top 5 time consuing functions.           
 
-```html
-<script src="https://d3js.org/d3-selection.v1.js"></script>
-```
+The pre-requisites are as follows:
 
-D3 is written using [ES2015 modules](http://www.2ality.com/2014/09/es6-modules-final.html). Create a [custom bundle using Rollup](https://bl.ocks.org/mbostock/bb09af4c39c79cffcde4), Webpack, or your preferred bundler. To import D3 into an ES2015 application, either import specific symbols from specific D3 modules:
+->Latest version of python compiler to be installed.
 
-```js
-import {scaleLinear} from "d3-scale";
-```
+->Since we are using the functions of d3 we have to mention it in our html file using "<script src="https://d3js.org/d3.v5.js"></script>"
 
-Or import everything into a namespace (here, `d3`):
-
-```js
-import * as d3 from "d3";
-```
-
-In Node:
-
-```js
-var d3 = require("d3");
-```
-
-You can also require individual modules and combine them into a `d3` object using [Object.assign](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign):
-
-```js
-var d3 = Object.assign({}, require("d3-format"), require("d3-geo"), require("d3-geo-projection"));
-```
+->The following steps are to be followed to install node server :-
+  1.sudo apt-get install npm
+  2.sudo apt-get install curl python-software-properties
+  3.curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+  4.sudo apt-get install -y nodejs
+  Sample Path:-/work/students/Deepcharran/D3-visualization/Data/
