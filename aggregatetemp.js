@@ -25,10 +25,7 @@ console.log("2t");
 //});
 tempinput.addEventListener('change', function (evnt) 
   {console.log("4t");
-    document.getElementById("aggregatesumbg").style.marginTop=0;
-    document.getElementById("openbg").style.marginTop=0;   
-    document.getElementById("currentbg").style.marginTop=0;
-          
+      
     document.getElementById("pathtext").innerHTML=" ";
     document.getElementById("openbg").innerHTML=" ";
     document.getElementById("currentbg").innerHTML=" ";
@@ -176,19 +173,19 @@ tempinput.addEventListener('change', function (evnt)
     function timeout()
     {
      var headingsum=d3.select("#headingbg")
+                      .style("justify-content","center")
                       .append("svg")
                       .attr("width", 740)
       	              .attr("height", 37)
                       .style("text-align","center")
                       .attr("transform","translate(200,-30)")
                       .append("text")
-                      .attr("transform","translate(370,30)")
-                      .style("text-anchor","middle")
-                      .style("text-align","center")
+                      .attr("transform","translate(0,30)")
                       .style("font-size","30px")
                       .text("Distribution over time of most time consuming functions");    
           
- document.getElementById("headingbg").style.height= "0px";
+      document.getElementById("headingbg").style.height= "0px";
+
       func2.sort(sortfunction); /*Sorting the func array in descending order to determine the top 5 time consuming functions*/      
       func.sort(sortfunction);/*Sorting the func2 array in descending order to determine the top 5 time consuming functions*/
       function sortfunction(a,b)
