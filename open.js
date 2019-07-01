@@ -17,15 +17,18 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
     document.getElementById("headingbg").innerHTML=" ";
 
     var headingsum=d3.select("#headingbg")
+                     .style("justify-content","center")
                      .append("svg")
-                     .attr("width", 500)
-      	             .attr("height", 40)
+                     .attr("width", 540)
+      	             .attr("height", 37)
+                     .style("text-align","center")
                      .attr("transform","translate(350,-30)")
                      .append("text")
  		     .attr("transform","translate(80,30)")
-                     .style("text-anchor","middle")
                      .style("font-size","30px")
-                     .text("Pie Charts");    
+                     .text("Function profiles of current output"); 
+   
+   document.getElementById("headingbg").style.height= "20px";
   
     for (var i = 0,j = fileInp.files.length; i<j; i++) 
       {
