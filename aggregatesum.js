@@ -29,7 +29,12 @@ document.getElementById("headingbg").innerHTML=" ";
 var elmntsum = document.createElement('div');
 elmntsum.innerHTML = '<input type="file" id="bar" accept=".tsv" webkitdirectory multiple >';
 var input_1sum = elmntsum.firstChild;
-var sumsel = document.getElementById('sum');	
+//var sumsel = document.getElementById('sum');	
+//sumsel.addEventListener("click", function () 
+//	{  // wait for click on "select a file" button
+console.log("3s");
+           input_1sum.click();
+//	});
 input_1sum.addEventListener('change', function (evnt) 
   { console.log("4s");
     var fileListsum = [],i,k,filenamesum=[],len,l=3,m=0,flag=0,flagi=0,t=0,o,q=0,x=0,label,s=0,st=0;
@@ -118,11 +123,7 @@ input_1sum.addEventListener('change', function (evnt)
 	   });	
  dispcallsum(funcsum,filelen,filenamesum);/*Calling the dispcallsum function to display the bar chart*/
 }); /*closing tag of addEvenListner*/
-sumsel.addEventListener("click", function () 
-	{  // wait for click on "select a file" button
-console.log("3s");
-           input_1sum.click();
-	});						   
+						   
 } 	     
     function dispcallsum(funcsum,filelen,filenamesum)
     {

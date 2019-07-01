@@ -17,8 +17,12 @@ function calleventtemp()
 var tempelmnt = document.createElement('div');
 tempelmnt.innerHTML = '<input type="file" id="bar2" accept=".tsv" webkitdirectory multiple >';
 var tempinput = tempelmnt.firstChild;
-var tempselect = document.getElementById('temp');
+//var tempselect = document.getElementById('temp');
 console.log("2t");
+//tempselect.addEventListener("click", function () {  // wait for click on "select a file" button
+    console.log("3t");
+    tempinput.click();
+//});
 tempinput.addEventListener('change', function (evnt) 
   {console.log("4t");
     document.getElementById("pathtext").innerHTML=" ";
@@ -159,10 +163,7 @@ tempinput.addEventListener('change', function (evnt)
    					   
   }); /*closing tag of addEvenListner*/
 					   
-    tempselect.addEventListener("click", function () {  // wait for click on "select a file" button
-console.log("3t");
-    tempinput.click();
-});
+
 }
     function dispcalltemp(func,func2,nameno,filelen)
     {var funcobj1=[],funcobj2=[],funcobj3=[],funcobj4=[],funcobj5=[],max=0,res=[],res2=[],max2=0;

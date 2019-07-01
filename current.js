@@ -1,24 +1,11 @@
 var s=0,namesorg=[];
-function currfunc()
-  {
-    var fullpath=(sessionStorage.getItem("pathdir"));
-    if(fullpath)
-    {
-      noselectcurr();
-    }
-    else
-    {
-      calleventcurr();
-    }
-  }
-function calleventcurr()
-{  
+var fileSelect1 = document.getElementById("cur");
+//function calleventcurr()
+//{  
 var labelname;
 var element1 = document.createElement('div');
 element1.innerHTML = '<input type="file" multiple id="in" accept=".tsv" webkitdirectory multipe>';
 var fileInput = element1.firstChild;                                                  
-var fileSelect1 = document.getElementById("cur");
-
 fileInput.addEventListener('change', function (evnt) 
   {
     
@@ -101,10 +88,19 @@ x++;
 			
 fileSelect1.addEventListener("click", function () 
 	{  // wait for click on "select a file" button
-           fileInput.click();
+    var fullpath=(sessionStorage.getItem("pathdir"));
+    if(fullpath)
+    {
+      noselectcurr();
+    }
+    else
+    {
+      fileInput.click();
+    }
+  
 });
 
-}/*function closing tag*/
+//}/*function closing tag*/
 
 	    function dispcallcurr(labelname,data)
             {
