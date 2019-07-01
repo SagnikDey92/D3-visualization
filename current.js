@@ -25,9 +25,9 @@ fileInput.addEventListener('change', function (evnt)
                      .attr("width", 540)
       	             .attr("height", 37)
                      .style("text-align","center")
-                     .attr("transform","translate(300,-30)")
+                     .attr("transform","translate(350,-30)")
                      .append("text")
- 		     .attr("transform","translate(0,30)")
+ 		     .attr("transform","translate(80,30)")
                      .style("font-size","30px")
                      .text("Function profiles of current output");    
 
