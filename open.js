@@ -22,7 +22,7 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
                      .attr("width", 540)
       	             .attr("height", 37)
                      .style("text-align","center")
-                     .attr("transform","translate(350,-30)")
+                     .attr("transform","translate(450,-30)")
                      .append("text")
  		     .attr("transform","translate(80,30)")
                      .style("font-size","30px")
