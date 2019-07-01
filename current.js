@@ -20,16 +20,19 @@ fileInput.addEventListener('change', function (evnt)
     document.getElementById("headingbg").innerHTML=" ";
  
     var headingsum=d3.select("#headingbg")
+                     .style("justify-content","center")
                      .append("svg")
-                     .attr("width", 500)
-      	             .attr("height", 40)
-                     .attr("transform","translate(200,5)")
+                     .attr("width", 540)
+      	             .attr("height", 37)
+                     .style("text-align","center")
+                     .attr("transform","translate(300,-30)")
                      .append("text")
- 		     .attr("transform","translate(250,30)")
-                     .style("text-anchor","middle")
+ 		     .attr("transform","translate(0,30)")
                      .style("font-size","30px")
-                     .text("Pie Charts of last 6 files");    
-        
+                     .text("Function profiles of current output");    
+
+  document.getElementById("headingbg").style.height= "20px";
+          
     var fileList = [],names=[],x,s=0;
     for (var i = 0,j = fileInput.files.length; i<j; i++) 
       {
@@ -281,15 +284,18 @@ function noselectcurr()
     document.getElementById("headingbg").innerHTML=" ";
     
     var headingsum=d3.select("#headingbg")
+                     .style("justify-content","center")
                      .append("svg")
-                     .attr("width", 500)
-      	             .attr("height", 40)
-                     .attr("transform","translate(200,5)")
+                     .attr("width", 540)
+      	             .attr("height", 37)
+                     .style("text-align","center")
+                     .attr("transform","translate(500,-30)")
                      .append("text")
- 		     .attr("transform","translate(250,30)")
-                     .style("text-anchor","middle")
+ 		     .attr("transform","translate(0,30)")
                      .style("font-size","30px")
-                     .text("Pie Charts of last 6 files");    
+                     .text("Function profiles of current output");    
+
+  document.getElementById("headingbg").style.height= "0px";
   
   var l=fileLength-6;
   for(i=fileLength-6;i<fileLength;i++)
