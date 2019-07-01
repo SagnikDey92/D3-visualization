@@ -131,21 +131,18 @@ input_1sum.addEventListener('change', function (evnt)
     {
       var namenosum=[],dataArraysum=[];
       var headingsum=d3.select("#headingbg")
+		       .style("justify-content","center")
                        .append("svg")
-                       .attr("width", 500)
-    		       .attr("height", 40)
-                       .attr("transform","translate(200,5)")
+                       .attr("width", 540)
+    		       .attr("height", 37)
+                       .style("text-align","center")
+                       .attr("transform","translate(350,-30)")
                        .append("text")
- 		       .attr("transform","translate(250,30)")
-                       .style("text-anchor","middle")
+ 		       .attr("transform","translate(80,30)")
                        .style("font-size","30px")
                        .text("Most Time Consuming Functions");
-  /*    var heading = document.createElement('div');
-      heading.setAttribute("id", "divtext");
-      heading.setAttributeNS(null, 'x', x);
-      heading.setAttributeNS(null, 'y', y);
-      heading.innerHTML='<h4 style="text-align:center;"><font color="black">Most Time Consuming Functions</h4>';
-      document.body.appendChild(heading);*/
+
+      document.getElementById("headingbg").style.height= "10px";
 
       funcsum.sort(sortfunction);/*Sorting the funcsum array in descending order to determine the top 5 time consuming functions*/
       function sortfunction(a,b)
