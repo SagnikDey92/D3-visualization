@@ -26,7 +26,7 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
                      .append("text")
  		     .attr("transform","translate(80,30)")
                      .style("font-size","30px")
-                     .text("Function profiles of open output"); 
+                     .text("Function profiles of selected output"); 
    
    document.getElementById("headingbg").style.height= "20px";
   
