@@ -3,7 +3,9 @@
       background-color:white;				   
       background-size:cover;
      }
-
+navbar{
+       z-index:auto;
+      }
 nav {
      height:30px;
     }
@@ -63,11 +65,12 @@ ul li ul li a{
            }	
 	
 ul li:hover ul li{
-                  display:block;
-                 visibility: visible;			
-                 }
+                   display:block;
+                   visibility: visible;
+               }
 
 .button {
+
          background:none;
          color:inherit;
          /*border:none;*/ 
@@ -77,7 +80,7 @@ ul li:hover ul li{
          border-bottom:1px solid #444; 
          cursor: pointer;
 	 color:black;
-	 overflow:hidden;
+
 	}
 
 ul.nav.navbar-nav{
@@ -91,13 +94,13 @@ ul.nav.navbar-nav{
        height:40px;
      }
 #headingbg{
-              width:85%;
+              width:100%;
      	      right: 0;
     	      top:0;
     	      bottom: 0;
       	      margin-top:24px;
 	      margin-bottom:0px;
-	       
+	     
 	  }
 
 #wrap{
@@ -126,7 +129,7 @@ ul.nav.navbar-nav{
 	      margin-top:32px;
 	      margin-bottom:0px;
 	      overflow-y:auto;
-              
+              z-index:-20;
 	   }
 
  #vl {

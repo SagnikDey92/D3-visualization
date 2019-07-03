@@ -7,25 +7,22 @@ function tempfunc()
       noselecttemp();
     }
     else
-    { console.log("1t");    
+    {  
       calleventtemp();
     }
   }
 /*The calleventtemp function is used to display the dialog box and let the user to choose the folder*/
 function calleventtemp()
 {  
-var tempelmnt = document.createElement('div');
+var tempelmnt = document.createElement('div');/*Creating element*/
 tempelmnt.innerHTML = '<input type="file" id="bar2" accept=".tsv" webkitdirectory multiple >';
 var tempinput = tempelmnt.firstChild;
-//var tempselect = document.getElementById('temp');
-console.log("2t");
-//tempselect.addEventListener("click", function () {  // wait for click on "select a file" button
-    console.log("3t");
-    tempinput.click();
-//});
+
+tempinput.click();
+
 tempinput.addEventListener('change', function (evnt) 
-  {console.log("4t");
-      
+  {	
+    /*The below codes are used to clear the screen*/  
     document.getElementById("pathtext").innerHTML=" ";
     document.getElementById("openbg").innerHTML=" ";
     document.getElementById("currentbg").innerHTML=" ";
@@ -34,6 +31,7 @@ tempinput.addEventListener('change', function (evnt)
     //document.getElementById("newbg").innerHTML=" ";
     document.getElementById("aggregatesumbg").innerHTML=" ";   
     document.getElementById("aggregatetempbg").innerHTML=" ";
+    document.getElementById("heatmapbg").innerHTML=" ";
     document.getElementById("headingbg").innerHTML=" ";
 
     var texthead,texthead2,nameno=[],flag=0,flag2=0,filelen;
@@ -54,12 +52,14 @@ tempinput.addEventListener('change', function (evnt)
     	
     fileList.forEach(function (file, index) 
 	  {  
-	     filename.push((file.name).split('.').slice(0,-1).join('.'));/*Splitting the extension of the files and pushing it in an array*/
+	     filename.push((file.name).split('.').slice(0,-1).join('.'));/*Pushing the names of the files without extension*/
 	  });
+
+   /*sortAplhaNum function is used to sort the alphnumeric strings*/
+
     var reA = /[^a-zA-Z]/g;
     var reN = /[^0-9]/g;
 
-/*sortAplhaNum function is used to sort the alphnumeric strings*/
 
     function sortAlphaNum(a, b) 
     {
@@ -172,13 +172,16 @@ tempinput.addEventListener('change', function (evnt)
     
     function timeout()
     {
+
+     /*Creating the header text*/
+
      var headingsum=d3.select("#headingbg")
                       .style("justify-content","center")
                       .append("svg")
                       .attr("width", 740)
       	              .attr("height", 37)
                       .style("text-align","center")
-                      .attr("transform","translate(400,-30)")
+                      .attr("transform","translate(400,-20)")
                       .append("text")
                       .attr("transform","translate(0,30)")
                       .style("font-size","30px")
@@ -251,11 +254,13 @@ tempinput.addEventListener('change', function (evnt)
        
       console.log(max);
       console.log(max2);	
-      //console.log(dataArray);
+      
       
       texthead="Time Profile of MPI Point-to-Point Communication";
       texthead2="Time Profile of MPI Synchronization Functions";
+
       /*Creating associative arrays to retrieve the values in line chart*/
+
       for(i=0;i<dataArray[0].length;i++)
         {  
           funcobj1.push({
@@ -386,9 +391,6 @@ var line1 = d3.line()
             .y(function(d) {
                 return y(d.Value)
             });
-//var xAxis = d3.axisBottom(x)
-  //.attr("transform", "translate(0,0)")
-  //.tickValues(x.domain().filter(function(d,i){ return d}));
        
 	g.append("g")
   	    .attr("transform", "translate(0," + height + ")")
@@ -528,6 +530,7 @@ function noselecttemp()
     //document.getElementById("newbg").innerHTML=" ";
     document.getElementById("aggregatesumbg").innerHTML=" ";   
     document.getElementById("aggregatetempbg").innerHTML=" ";
+    document.getElementById("heatmapbg").innerHTML=" ";
     document.getElementById("headingbg").innerHTML=" ";  
 
     filelen=dataArray.length;

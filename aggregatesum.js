@@ -8,14 +8,13 @@ function sumfunc()
       noselectsum();
     }
     else
-    {console.log("1s");
+    {
       calleventsum();
     }
   }
 /*The calleventsum function is used to display the dialog box and let the user to choose the folder*/  
 function calleventsum()
 {
-console.log("2s");
 funcsum=[];
 document.getElementById("openbg").innerHTML=" ";
 document.getElementById("pathtext").innerHTML=" ";
@@ -25,18 +24,17 @@ document.getElementById("currentbg").innerHTML=" ";
 //document.getElementById("newbg").innerHTML=" ";
 document.getElementById("aggregatesumbg").innerHTML=" ";
 document.getElementById("aggregatetempbg").innerHTML=" ";
+document.getElementById("heatmapbg").innerHTML=" ";
 document.getElementById("headingbg").innerHTML=" ";
-var elmntsum = document.createElement('div');
+
+var elmntsum = document.createElement('div');/*Creating element*/
 elmntsum.innerHTML = '<input type="file" id="bar" accept=".tsv" webkitdirectory multiple >';
 var input_1sum = elmntsum.firstChild;
-//var sumsel = document.getElementById('sum');	
-//sumsel.addEventListener("click", function () 
-//	{  // wait for click on "select a file" button
-console.log("3s");
-           input_1sum.click();
-//	});
+
+input_1sum.click();
+
 input_1sum.addEventListener('change', function (evnt) 
-  { console.log("4s");
+  { 
     var fileListsum = [],i,k,filenamesum=[],len,l=3,m=0,flag=0,flagi=0,t=0,o,q=0,x=0,label,s=0,st=0;
     for (i = 0,j = input_1sum.files.length; i<j; i++) 
       {
@@ -52,12 +50,13 @@ input_1sum.addEventListener('change', function (evnt)
     
     fileListsum.forEach(function (file, index) 
 	  {  
-	     filenamesum.push((file.name).split('.').slice(0,-1).join('.'));  /*Splitting the extension of the files and pushing it in an array*/
+	     filenamesum.push((file.name).split('.').slice(0,-1).join('.'));/*Used to push the files present in the folder in an array*/
 	  });
+
+    /*sortAplhaNumsum function is used to sort the alphnumeric strings*/
+
     var reA = /[^a-zA-Z]/g;
     var reN = /[^0-9]/g;
-
-/*sortAplhaNumsum function is used to sort the alphnumeric strings*/
 
     function sortAlphaNumsum(a, b) 
     {
@@ -76,6 +75,7 @@ input_1sum.addEventListener('change', function (evnt)
     }
     filenamesum=filenamesum.sort(sortAlphaNumsum); /*Calling the sortAphNumsum function to sort the filenames in ascending order*/
     console.log(filenamesum);
+
     fileListsum.forEach(function (file, index) 
 	  {  
 	    d3.tsv("Data/"+ filenamesum[s]+".tsv", function(error, data) /*d3 function used to read the data present in the file*/
@@ -95,6 +95,7 @@ input_1sum.addEventListener('change', function (evnt)
 		    if(flag!=1)
 		      {
 			funcsum[m][0]=(d.Call + "(" + d.Site + ")");
+
 		        funcsum[m][1]=parseFloat(d.Time);/*Used to add the distinct functions*/
 			m=m+1;
 		      }
@@ -136,7 +137,7 @@ input_1sum.addEventListener('change', function (evnt)
                        .attr("width", 540)
     		       .attr("height", 37)
                        .style("text-align","center")
-                       .attr("transform","translate(350,-30)")
+                       .attr("transform","translate(350,-20)")
                        .append("text")
  		       .attr("transform","translate(80,30)")
                        .style("font-size","30px")
@@ -173,14 +174,18 @@ input_1sum.addEventListener('change', function (evnt)
       x=0;
 while(x<5)
       {
+        dataArraysum=[];
         j=0;
         label=ressum[x];
         for(i=2;i<filelen+2;i++)
         {
-	  dataArraysum[x][j]=(parseFloat(funcsum[x][i]));/*dataArraysum contains the time of functions present in each file*/
+          dataArraysum.push({        /*dataArraysum contains the Filename and time of functions present in each file*/
+          'Filename':namenosum[j],
+          'Value':(parseFloat(funcsum[x][i]))
+          });
 	  j++;
 	}
-	console.log(dataArraysum[x]);
+	console.log(dataArraysum);
 
     	var margin = {top: 50, right: 20, bottom: 100, left: 100},
     	  width = 500 - margin.left - margin.right,
@@ -204,6 +209,7 @@ while(x<5)
 
 
 	var color = d3.scaleOrdinal(["#0d0887", "#6a00a8","#cb4679", "#e16462","#fca636","#5eff33","#ff4933","#33fffc","#3633ff","#33c1ff","#ffdd33","#6c946b"]); 
+
 		  
 	var legendRectSize = 18;                                  
         var legendSpacing = 4;   
@@ -211,24 +217,22 @@ while(x<5)
   	    l=3;
 	    
 	    // Scale the range of the data in the domains
-  	    x1.domain( namenosum );
-  	    y1.domain([0, d3.max(dataArraysum[x],function(d){return (d+(d/4));})]);
+  	    x1.domain( dataArraysum.map(function(d){ return d.Filename;}) );
+  	    y1.domain([0, d3.max(dataArraysum,function(d){return (d.Value+(d.Value/4));})]);
 
   	    // append the rectangles for the bar chart
   	    svg1.selectAll(".bar")
-      		.data(dataArraysum[x])
+      		.data(dataArraysum)
     		.enter().append("rect")
       		.attr("class", "bar")
       		.attr("x", function(d) 
 		  { 
-		    o=2*l;
-		    l=l+15.5;
-		    return o;
+		    return x1(d.Filename);
 		  })
       		.attr("width", x1.bandwidth())
       		.attr("y", function(d) 
 		  { 
-			return y1(d);
+			return y1(d.Value);
 		  })
 		.attr("fill", function(d,i) 
 		  { 
@@ -236,30 +240,28 @@ while(x<5)
 		  })
       		.attr("height", function(d) 
 		  {		    
-		    return height - y1(d); 
+		    return height - y1(d.Value); 
 		  });
 	
 	l=3;
 	 //console.log(x1.bandwidth());
 	  svg1.selectAll(".text")  		
-	      .data(dataArraysum[x])
+	      .data(dataArraysum)
 	      .enter()
 	      .append("text")
 	      .attr("class","label")
 	      .attr("x", function(d) 
 		  { 
-		    o=2*l;
-		    l=l+15.7;
-		    return o;
+		    return x1(d.Filename);
 		  })
 	      .attr("y", function(d) 
 		 { 
-		   return y1(d) - 10; 
+		   return y1(d.Value) - 10; 
 		 })
 	      .attr("dy", ".75em")
 	      .text(function(d) 
 		 { 
-		   return d; 
+		   return d.Value; 
 		 });    	
 //console.log(name);
   	// add the x Axis
@@ -296,6 +298,7 @@ while(x<5)
           		   .attr('transform', function(d, i) 
 			     {                    
             		       var height = legendRectSize + legendSpacing;         
+
             		       var offset =  height * color.domain().length / 2;     
             		       var horz = 18 * legendRectSize;                        
             		       var vert = i * height + offset;                       
@@ -321,6 +324,7 @@ document.getElementById("currentbg").innerHTML=" ";
 //document.getElementById("newbg").innerHTML=" ";
 document.getElementById("aggregatesumbg").innerHTML=" ";
 document.getElementById("aggregatetempbg").innerHTML=" ";
+document.getElementById("heatmapbg").innerHTML=" ";
 document.getElementById("headingbg").innerHTML=" ";
 
 var flag=0,m=0,j=0,namenosum=[],filenamesum=[];

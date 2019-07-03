@@ -14,6 +14,7 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
     //document.getElementById("newbg").innerHTML=" ";
     document.getElementById("aggregatesumbg").innerHTML=" ";
     document.getElementById("aggregatetempbg").innerHTML=" ";
+    document.getElementById("heatmapbg").innerHTML=" ";    
     document.getElementById("headingbg").innerHTML=" ";
 
     var headingsum=d3.select("#headingbg")
@@ -22,14 +23,14 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
                      .attr("width", 540)
       	             .attr("height", 37)
                      .style("text-align","center")
-                     .attr("transform","translate(450,-30)")
+                     .attr("transform","translate(450,-20)")
                      .append("text")
  		     .attr("transform","translate(80,30)")
                      .style("font-size","30px")
                      .text("Function profiles of selected output"); 
    
-   document.getElementById("headingbg").style.height= "20px";
-  
+    document.getElementById("headingbg").style.height= "20px";
+    
     for (var i = 0,j = fileInp.files.length; i<j; i++) 
       {
   	fileListopen.push(fileInp.files[i]);		/*-----Pushes the element into the array-----*/

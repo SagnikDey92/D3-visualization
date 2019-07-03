@@ -35,7 +35,7 @@
 <body>
 <!--for adding list in the page-->
 
-<nav class="navbar navbar-inverse">		<!-----Header----->
+<nav id="navbar" class="navbar navbar-inverse">		<!-----Header----->
   <div class="container-fluid">
     <ul   class="nav navbar-nav">		<!-----Menu options----->
       <li id="file"><a id="file">File</a>        <!-- Adding File option-->	
@@ -57,6 +57,7 @@
 		<ul>
 		    <li><button id="temp" class="button" onclick="tempfunc()">Temporal</button></li>
 		    <li><button id="sum" class="button" onclick="sumfunc()">Aggregate(Sum)</button></li>
+                    <li><button id="heatmap" class="button" >Rank View</button></li>
 	        </ul>
 	    </li>
 	  </ul>
@@ -72,7 +73,7 @@
 		<!-----Links to the external scripts----->
 	<script type="text/javascript" src="open.js"></script>
 	<script type="text/javascript" src="current.js"></script>
-       <!-- <script type="text/javascript" src="heatmap.js"></script>	
+        <script type="text/javascript" src="heatmap.js"></script>	
 	<!--  <script type="text/javascript" src="refresh.js"></script>
 	<script type="text/javascript" src="clean.js"></script>
         <script type="text/javascript" src="new.js"></script>-->
@@ -87,7 +88,7 @@
       <div id="headingbg"></div>
       <div id="openbg"> </div>
       <div id="currentbg"></div>
-     <!-- <div id="heatmapbg"></div>
+      <div id="heatmapbg"></div>
       <!--<div id="refreshbg"> </div>
       <div id="cleanbg"> </div>
       <div id="newbg"> </div>-->
@@ -95,14 +96,14 @@
       <div id="aggregatetempbg"> </div>	
 
       <div id="pathtext">
-      <h1 style="text-align:center;"><font color="black">Enter the path of simulation output </font></h2>
+      <h1 style="text-align:center;"><font color="black">Enter the path of simulation output</font></h2>
       <div id="path"style="text-align:center;"><font color="black"><input type="text" id="mytext" ></font>
       <font color="black"><button onclick="myFunction()" >Submit</button></font></div>
       </div>
 		<!-----Links to the external scripts----->
         <script type="text/javascript" src="open.js"></script>
         <script type="text/javascript" src="current.js"></script>
-      <!--  <script type="text/javascript" src="heatmap.js"></script>
+        <script type="text/javascript" src="heatmap.js"></script>
       <!--  <script type="text/javascript" src="refresh.js"></script>
         <script type="text/javascript" src="clean.js"></script>
         <script type="text/javascript" src="new.js"></script>-->

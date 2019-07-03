@@ -1,4 +1,4 @@
-var s=0,namesorg=[];
+var s=0,namesorg=[],index=0;
 var fileSelect1 = document.getElementById("cur");
 //function calleventcurr()
 //{  
@@ -17,6 +17,7 @@ fileInput.addEventListener('change', function (evnt)
     document.getElementById("newbg").innerHTML=" ";*/
     document.getElementById("aggregatesumbg").innerHTML=" ";
     document.getElementById("aggregatetempbg").innerHTML=" ";
+    document.getElementById("heatmapbg").innerHTML=" ";
     document.getElementById("headingbg").innerHTML=" ";
  
     var headingsum=d3.select("#headingbg")
@@ -31,7 +32,7 @@ fileInput.addEventListener('change', function (evnt)
                      .style("font-size","30px")
                      .text("Function profiles of current output");    
 
-  document.getElementById("headingbg").style.height= "20px";
+    document.getElementById("headingbg").style.height= "20px";
           
     var fileList = [],names=[],x,s=0;
     for (var i = 0,j = fileInput.files.length; i<j; i++) 
@@ -81,7 +82,7 @@ fileInput.addEventListener('change', function (evnt)
          d3.tsv("Data/" +namesorg[x]+".tsv", function(data) /*d3 function used to read the data present in the file*/
 	  {    
 		            
-		dispcallcurr("0",data);/*Calling the dispcallcurr function to display the pie chart of last 6 files*/
+		dispcallcurr(namesorg,data);/*Calling the dispcallcurr function to display the pie chart of last 6 files*/
 	   
         });	
 x++;	
@@ -107,13 +108,9 @@ fileSelect1.addEventListener("click", function ()
 
 	    function dispcallcurr(labelname,data)
             {
-            if(labelname=="0")
-	    {
-             labelname=namesorg[s];
-             console.log(namesorg[s]);/*Inorder to differentiate from noselectcurr function and calleventcurr function.In case of noselectcurr function we need to display the names from the array as d3.tsv does not work as a loop*/
-	     s++;
-            }
-	    var width=350;
+            var label=labelname[index];   
+            index++;         
+            var width=350;
 	    var height=280;
             
 	     var svg = d3.select("#currentbg").append("svg")
@@ -147,8 +144,8 @@ fileSelect1.addEventListener("click", function ()
         	     .attr("transform","translate(0,135)")
         	     .attr("text-anchor", "middle")  
         	     .style("font-size", "16px") 
-        	     .style("text-decoration", "underline")  
-        	     .text(labelname);
+        	     .style("text-decoration", "underline") 
+        	     .text(label);
 	     //s=s+1;				
             var arc = svg.selectAll(".arc")       /* selects all the Arc and creates an array  of Object*/
                        .data(pie(data))          /* the function pie(data) takes the data from the file and creates an object of that data as an Array*/
@@ -281,6 +278,7 @@ function noselectcurr()
     document.getElementById("newbg").innerHTML=" ";*/
     document.getElementById("aggregatesumbg").innerHTML=" ";
     document.getElementById("aggregatetempbg").innerHTML=" ";
+    document.getElementById("heatmapbg").innerHTML=" ";
     document.getElementById("headingbg").innerHTML=" ";
     
     var headingsum=d3.select("#headingbg")
@@ -289,21 +287,26 @@ function noselectcurr()
                      .attr("width", 540)
       	             .attr("height", 37)
                      .style("text-align","center")
-                     .attr("transform","translate(500,-30)")
+                     .attr("transform","translate(350,-20)")
                      .append("text")
- 		     .attr("transform","translate(0,30)")
+ 		     .attr("transform","translate(80,30)")
                      .style("font-size","30px")
                      .text("Function profiles of current output");    
 
-  document.getElementById("headingbg").style.height= "0px";
+  document.getElementById("headingbg").style.height= "20px";
   
   var l=fileLength-6;
+ 
+  for(i=fileLength-6;i<fileLength;i++)
+    {
+      namesorg.push((filename[i]).split('.').slice(0,-1).join('.'));
+    }   
+ 
   for(i=fileLength-6;i<fileLength;i++)
     {
       var data=[];
       data=dataArray[i];
-      var labelname=((filename[i]).split('.').slice(0,-1).join('.'));
-      dispcallcurr(labelname,data);
+      dispcallcurr(namesorg,data);
     }
 
 }
