@@ -25,7 +25,7 @@ fileInp.addEventListener('change', function (evnt)		/*-----Commands to be perfor
                      .style("text-align","center")
                      .attr("transform","translate(450,-20)")
                      .append("text")
- 		     .attr("transform","translate(80,30)")
+ 		     .attr("transform","translate(60,30)")
                      .style("font-size","30px")
                      .text("Function profiles of selected output"); 
    
@@ -262,4 +262,3 @@ fileSelect.addEventListener("click", function ()
         
 
         }		
-
