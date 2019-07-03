@@ -80,7 +80,7 @@ fileInput1h.addEventListener('change', function (evnt)
                        .style("text-align","center")
                        .attr("transform","translate(350,-20)")
                        .append("text")
- 		       .attr("transform","translate(80,30)")
+ 		       .attr("transform","translate(50,30)")
                        .style("font-size","30px")
                        .text("Rank view representing time density ");
   
@@ -151,7 +151,7 @@ fileInput1h.addEventListener('change', function (evnt)
                                    .enter().append("text")
                                    .text(function (d) { return d; })
                                    .attr("x",  function (d, i) { return i * gridSize; })
-                                   .attr("y",height-100)
+                                   .attr("y",height-80)
                                    .style("text-anchor", "end")                      
 	                           .attr("transform", "translate(" + gridSize / 2 + ", -6)")
 	                           .attr("class","Snapshotslabel");
@@ -167,7 +167,7 @@ fileInput1h.addEventListener('change', function (evnt)
                                .attr("class","Rankslabel");
 
            svg.append("text")/*Used to append the text 'Snapshots' to the svg*/
-              .attr("transform","translate(" + (width/5) + "," + (height-80) + ")")
+              .attr("transform","translate(" + (width/5) + "," + (height-70) + ")")
               .style("text-anchor","middle").text("Snapshots");
 
            svg.append("text")/*Used to append the text 'Ranks' to the svg and rotate in in order to place it in y-axis*/
@@ -243,5 +243,4 @@ fileSelect1h.addEventListener("click", function ()
 	{  // wait for click on "select a file" button
            fileInput1h.click();
 });
-
 
