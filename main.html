@@ -188,17 +188,20 @@ function disp()
   var l=fileLength-6;
   if(dataArray.length==fileLength)/*Determining if the data of all files has been received*/
   {
-     var headingsum=d3.select("#headingbg")
-                      .append("svg")
-                      .attr("width", 500)
-      	              .attr("height", 40)
-                      .attr("transform","translate(200,5)")
-                      .append("text")
- 	   	      .attr("transform","translate(250,30)")
-                      .style("text-anchor","middle")
-                      .style("font-size","30px")
-                      .text("Pie Charts of last 6 files");    
-   
+    var headingsum=d3.select("#headingbg")
+                     .style("justify-content","center")
+                     .append("svg")
+                     .attr("width", 540)
+      	             .attr("height", 37)
+                     .style("text-align","center")
+                     .attr("transform","translate(350,-20)")
+                     .append("text")
+ 		     .attr("transform","translate(80,30)")
+                     .style("font-size","30px")
+                     .text("Function profiles of current output"); 
+	  
+   document.getElementById("headingbg").style.height= "20px";	  
+	  
    console.log(dataArray);
    for(i=fileLength-6;i<fileLength;i++)
     {
