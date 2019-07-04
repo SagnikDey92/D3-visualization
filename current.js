@@ -1,11 +1,24 @@
 var s=0,namesorg=[],index=0;
 var fileSelect1 = document.getElementById("cur");
-//function calleventcurr()
-//{  
+function currfunc()
+{
+    var fullpath=(sessionStorage.getItem("pathdir"));
+    if(fullpath)
+    {
+      noselectcurr();
+    }
+    else
+    {
+      calleventcurr();
+    }
+}  
+function calleventcurr()
+{
 var labelname;
 var element1 = document.createElement('div');
 element1.innerHTML = '<input type="file" multiple id="in" accept=".tsv" webkitdirectory multipe>';
-var fileInput = element1.firstChild;                                                  
+var fileInput = element1.firstChild;      
+fileInput.click();                                            
 fileInput.addEventListener('change', function (evnt) 
   {
     
@@ -89,22 +102,8 @@ x++;
 	}/*while loop*/
 
   });	/*closing tap of the event listener*/	
-			
-fileSelect1.addEventListener("click", function () 
-	{  // wait for click on "select a file" button
-    var fullpath=(sessionStorage.getItem("pathdir"));
-    if(fullpath)
-    {
-      noselectcurr();
-    }
-    else
-    {
-      fileInput.click();
-    }
-  
-});
-
-//}/*function closing tag*/
+			  
+}/*function closing tag*/
 
 	    function dispcallcurr(labelname,data)
             {
@@ -270,6 +269,8 @@ fileSelect1.addEventListener("click", function ()
 
 function noselectcurr()
 {
+    var filenamecurr=[],dataArraycurr=[],fileLength=0;
+
     document.getElementById("pathtext").innerHTML=" ";
     document.getElementById("openbg").innerHTML=" ";
     document.getElementById("currentbg").innerHTML=" ";
@@ -294,20 +295,66 @@ function noselectcurr()
                      .text("Function profiles of current output");    
 
   document.getElementById("headingbg").style.height= "20px";
-  
-  var l=fileLength-6;
  
-  for(i=fileLength-6;i<fileLength;i++)
-    {
-      namesorg.push((filename[i]).split('.').slice(0,-1).join('.'));
-    }   
+    var ws = new WebSocket("ws://127.0.0.1:8081");
+
+    ws.onopen = function (event) 
+     {
+       console.log('Connection is open ...');
+       ws.send(xpath);/*Sending the path entered by the user to the server*/
+      };
+    ws.onerror = function (err) 
+     {
+       console.log('err: ', err);
+     };
+    ws.onmessage = function (event) 
+     {       
+	var kcurr=(event.data).split('.').pop();
+	/*Check if the message received consists of filenames or data of the files,if the message consists of filename then add it to the array of filename else convert the data using eval and add it in dataArray*/
+	if(kcurr==="tsv")
+	{
+	  filenamecurr.push(event.data);
+          fileLength=fileLength+1;
+	  //console.log(filename);
+	}
+	else
+	{
+	  data=eval(event.data);
+          dataArraycurr.push(data);
+	  dispcurr();/*Calling the disp function to display the last 6 files via pie chart*/
+	}
+       
+     };
+    ws.onclose = function() 
+     {
+       console.log("Connection is closed...");
+     };
+
+   function dispcurr()
+   {
+     if(fileLength>6)
+     {
+       var l=fileLength-6;
+     }
+     else
+     {
+       var l=fileLength;
+     }
+     if(dataArraycurr.length==fileLength)/*Determining if the data of all files has been received*/
+     {
+       console.log(dataArraycurr);
  
-  for(i=fileLength-6;i<fileLength;i++)
-    {
-      var data=[];
-      data=dataArray[i];
-      dispcallcurr(namesorg,data);
+       for(i=fileLength-l;i<fileLength;i++)
+       {
+         namesorg.push((filenamecurr[i]).split('.').slice(0,-1).join('.'));
+       }   
+ 
+       for(i=fileLength-l;i<fileLength;i++)
+       {
+         var data=[];
+         data=dataArraycurr[i];
+         dispcallcurr(namesorg,data);
+       }
+     }
     }
-
 }
-
