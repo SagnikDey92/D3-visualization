@@ -151,7 +151,7 @@ fileInput1h.addEventListener('change', function (evnt)
                                    .enter().append("text")
                                    .text(function (d) { return d; })
                                    .attr("x",  function (d, i) { return i * gridSize; })
-                                   .attr("y",height-80)
+                                   .attr("y",height-105)
                                    .style("text-anchor", "end")                      
 	                           .attr("transform", "translate(" + gridSize / 2 + ", -6)")
 	                           .attr("class","Snapshotslabel");
