@@ -47,7 +47,7 @@ fileInput.addEventListener('change', function (evnt)
 
     document.getElementById("headingbg").style.height= "20px";
           
-    var fileList = [],names=[],x,s=0;
+    var fileList = [],names=[],x,s=0,xno=0;
     for (var i = 0,j = fileInput.files.length; i<j; i++) 
       {
   	fileList.push(fileInput.files[i]); /*Used to push the files present in the folder in an array*/
@@ -79,9 +79,16 @@ fileInput.addEventListener('change', function (evnt)
     }
     names=names.sort(sortAlphaNumcurr);/*Calling the sortAphNumcurr function to sort the filenames in ascending order*/
     var filelen=names.length;
-    x=filelen-6;
+    if(filelen>6)
+    {
+      xno=filelen-6;
+    }
+    else
+    {
+      xno=filelen;
+    }
     j=0;
-    for(i=filelen-6;i<filelen;i++)
+    for(i=filelen-xno;i<filelen;i++)
     {
       namesorg[j]=names[i];/*Taking the names of last six files present in the folder*/
       j++;
@@ -90,7 +97,7 @@ fileInput.addEventListener('change', function (evnt)
                              
         x=0;
         s=0; 	
-	while(x<6)    	
+	while(x<xno)    	
         {
          d3.tsv("Data/" +namesorg[x]+".tsv", function(data) /*d3 function used to read the data present in the file*/
 	  {    
