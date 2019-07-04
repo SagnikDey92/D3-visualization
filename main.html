@@ -50,7 +50,7 @@
       <li id="view"><a id="view">View</a>                           <!-- Adding View Option-->
           <ul>                  	<!--  Adding the Sub Menu for view Option-->
 	    <li><button id="clr" class="button">Clean</button></li>          <!-- adds the Load sub option-->
-	    <li><button id="cur" class="button" >Current</button></li>
+	    <li><button id="cur" class="button" onclick="currfunc()">Current</button></li>
            <!-- <li><button id="heatmap" class="button">Heatmap</button></li>
 	   <!--<li><button id="ref" class="button">Refresh</button></li>       <!-- adds the Refresh sub option-->
 	    <li id="agr"><a>Analysis</a>
@@ -185,7 +185,15 @@ var fileLength=0;
   }
 function disp()
 {
-  var l=fileLength-6;
+     if(fileLength>6)
+     {
+       var l=fileLength-6;
+     }
+     else
+     {
+       var l=fileLength;
+     }
+
   if(dataArray.length==fileLength)/*Determining if the data of all files has been received*/
   {
     var headingsum=d3.select("#headingbg")
@@ -199,11 +207,11 @@ function disp()
  		     .attr("transform","translate(80,30)")
                      .style("font-size","30px")
                      .text("Function profiles of current output"); 
-	  
-   document.getElementById("headingbg").style.height= "20px";	  
-	  
+
+    document.getElementById("headingbg").style.height= "20px";
+   
    console.log(dataArray);
-   for(i=fileLength-6;i<fileLength;i++)
+   for(i=fileLength-l;i<fileLength;i++)
     {
             var data=[];
             data=dataArray[i];
@@ -242,7 +250,7 @@ function disp()
         	     .attr("text-anchor", "middle")  
         	     .style("font-size", "16px") 
         	     .style("text-decoration", "underline")  
-        	     .text((filename[l]).split('.').slice(0,-1).join('.'));
+        	     .text((filename[i]).split('.').slice(0,-1).join('.'));
 		     
 		//console.log(filename);
 					
@@ -362,7 +370,7 @@ function disp()
    				  .style("fill", "none")
 			          .style("stroke", "black")
 			          .style("stroke-width", "1px");
-l=l+1;
+
   }//for loop
  }//if loop
  }		
