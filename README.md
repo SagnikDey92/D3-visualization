@@ -34,3 +34,5 @@ The pre-requisites are as follows:
     3.curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
     4.sudo apt-get install -y nodejs
     Sample Path:-/work/students/Deepcharran/D3-visualization/Data/
+    
+ After installing node server we can run the node program in terminal using the command node NAME OF THE FILE. For instance        node servergh.js where servergh.js is the name of the file.
