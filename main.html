@@ -41,7 +41,7 @@
       <li id="file"><a id="file">File</a>        <!-- Adding File option-->	
 	  <ul>                            <!-- Adding the sub menu for File Option-->
 	    <li><a>New</a></li>               <!-- adds the New sub option-->
-	    <li><button id="inp" class="button">Open</button></li><!-- On clicking the open Functionality the page gets targeted to the new file.-->
+	    <li><button id="temp" class="button" onclick="openfunc()">Open</button></li>
 	    <li><a>Save</a></li>     <!-- adds the Save sub option-->
 	    <li><a>Close</a></li>    <!-- adds the Close sub option-->
 	  </ul>
@@ -49,7 +49,7 @@
 	                          
       <li id="view"><a id="view">View</a>                           <!-- Adding View Option-->
           <ul>                  	<!--  Adding the Sub Menu for view Option-->
-	    <li><button id="clr" class="button">Clean</button></li>          <!-- adds the Load sub option-->
+	    <li><button id="clr" class="button" onclick="cleanfunc()">Clean</button></li>          <!-- adds the Load sub option-->
 	    <li><button id="cur" class="button" onclick="currfunc()">Current</button></li>
            <!-- <li><button id="heatmap" class="button">Heatmap</button></li>
 	   <!--<li><button id="ref" class="button">Refresh</button></li>       <!-- adds the Refresh sub option-->
@@ -96,16 +96,15 @@
       <div id="aggregatetempbg"> </div>	
 
       <div id="pathtext">
-      <h1 style="text-align:center;"><font color="black">Enter the path of simulation output</font></h2>
-      <div id="path"style="text-align:center;"><font color="black"><input type="text" id="mytext" ></font>
-      <font color="black"><button onclick="myFunction()" >Submit</button></font></div>
+      <h1 style="text-align:center;"><font color="black">No data loaded</font></h2>
       </div>
 		<!-----Links to the external scripts----->
         <script type="text/javascript" src="open.js"></script>
         <script type="text/javascript" src="current.js"></script>
         <script type="text/javascript" src="heatmap.js"></script>
-      <!--  <script type="text/javascript" src="refresh.js"></script>
         <script type="text/javascript" src="clean.js"></script>
+      <!--  <script type="text/javascript" src="refresh.js"></script>
+        
         <script type="text/javascript" src="new.js"></script>-->
         <script type="text/javascript" src="aggregatesum.js"></script>
         <script type="text/javascript" src="aggregatetemp.js"></script>
@@ -113,8 +112,13 @@
 	
 </div>
   
- 
+<script type="text/javascript" src="open.js"></script>
+
 <script>
+var xpath, data = [],
+    filename = [],
+    k, dataArray = [];
+
 var fileLength = 0;
 
 var isResizing = false,
@@ -142,43 +146,6 @@ var isResizing = false,
         isResizing = false;
     }
 })();
-
-var xpath, data = [],
-    filename = [],
-    k, dataArray = [];
-
-function myFunction() {
-
-    xpath = document.getElementById("mytext").value;
-    sessionStorage.setItem("pathdir", xpath); /*Storing the path entered by the user*/
-    document.getElementById("pathtext").innerHTML = " ";
-
-    var ws = new WebSocket("ws://127.0.0.1:8081");
-    ws.onopen = function(event) {
-        console.log('Connection is open ...');
-        ws.send(xpath); /*Sending the path entered by the user to the server*/
-    };
-    ws.onerror = function(err) {
-        console.log('err: ', err);
-    };
-    ws.onmessage = function(event) {
-        var k = (event.data).split('.').pop();
-        /*Check if the message received consists of filenames or data of the files,if the message consists of filename then add it to the array of filename else convert the data using eval and add it in dataArray*/
-        if (k === "tsv") {
-            filename.push(event.data);
-            fileLength = fileLength + 1;
-            //console.log(filename);
-        } else {
-            data = eval(event.data);
-            dataArray.push(data);
-            disp(); /*Calling the disp function to display the last 6 files via pie chart*/
-        }
-
-    };
-    ws.onclose = function() {
-        console.log("Connection is closed...");
-    };
-}
 
 function disp() {
     if (fileLength > 6) {
