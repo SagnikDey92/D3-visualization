@@ -1,181 +1,195 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
-<title>D3</title>
-      <!-- Here Internal styling is used-->
-	  <!-- in body  the color of the text is set to be white ,bakground image is set and it covers the entire page-->  
-	  <!-- In ul{} the there is no magin and pading and the list style is none .there will be no disc or circles in the list-->
-	  <!-- In ul li{} , the list is set to the left Side,backround color of the list is set to black,text appears in the center,and transparency of the 
+    <title>D3</title>
+    <!-- Here Internal styling is used-->
+    <!-- in body  the color of the text is set to be white ,bakground image is set and it covers the entire page-->
+    <!-- In ul{} the there is no magin and pading and the list style is none .there will be no disc or circles in the list-->
+    <!-- In ul li{} , the list is set to the left Side,backround color of the list is set to black,text appears in the center,and transparency of the 
 	                          text is reduced-->
-       <!-- In ul li a{} , the there is no text decoration,color of the link is white and the list will appear as a block-->
-       <!--In ul li a:hover{}, on moving the mouse pointer to the link the color gets changed to green -->
-       <!-- In ul li ul  li{}, the sub menu will get hided by display:none-->
-       <!--In ul li:hover ul li{}, the sub menu will get displayed as on hovering the menu bar options.	   -->	   
-   
-   
-   
-<meta charset="utf-8"/>
-   
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="jquery.min.js"></script>
-<script src="jquery-ui.js"></script>
+    <!-- In ul li a{} , the there is no text decoration,color of the link is white and the list will appear as a block-->
+    <!--In ul li a:hover{}, on moving the mouse pointer to the link the color gets changed to green -->
+    <!-- In ul li ul  li{}, the sub menu will get hided by display:none-->
+    <!--In ul li:hover ul li{}, the sub menu will get displayed as on hovering the menu bar options.	   -->
 
-<link rel="stylesheet" href="style.css"  type="text/css">
-<style>
-.navbar {min-height:32px }
-</style>
+
+
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="jquery.min.js"></script>
+    <script src="jquery-ui.js"></script>
+
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <style>
+        .navbar {
+            min-height: 32px
+        }
+    </style>
 </head>
+
 <body>
-<!--for adding list in the page-->
+    <!--for adding list in the page-->
 
-<nav id="navbar" class="navbar navbar-inverse">		<!-----Header----->
-  <div class="container-fluid">
-    <ul   class="nav navbar-nav">		<!-----Menu options----->
-      <li id="file"><a id="file">File</a>        <!-- Adding File option-->	
-	  <ul>                            <!-- Adding the sub menu for File Option-->
-	    <li><button id="inp" class="button" onclick="openfunc()">Open</button></li><!-- On clicking the open Functionality the page gets targeted to the new file.-->
-	  </ul>
-      </li>
-	                          
-      <li id="view"><a id="view">View</a>                           <!-- Adding View Option-->
-          <ul>                  	<!--  Adding the Sub Menu for view Option-->
-	    <li><button id="clr" class="button" onclick="cleanfunc()">Clean</button></li>          <!-- adds the Load sub option-->
-	    <li><button id="cur" class="button" onclick="currfunc()">Current</button></li>
-           <!-- <li><button id="heatmap" class="button">Heatmap</button></li>
+    <nav id="navbar" class="navbar navbar-inverse">
+        <!-----Header----->
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <!-----Menu options----->
+                <li id="file"><a id="file">File</a> <!-- Adding File option-->
+                    <ul>
+                        <!-- Adding the sub menu for File Option-->
+                        <li><button id="inp" class="button" onclick="openfunc()">Open</button></li><!-- On clicking the open Functionality the page gets targeted to the new file.-->
+                    </ul>
+                </li>
+
+                <li id="view"><a id="view">View</a> <!-- Adding View Option-->
+                    <ul>
+                        <!--  Adding the Sub Menu for view Option-->
+                        <li><button id="clr" class="button" onclick="cleanfunc()">Clean</button></li> <!-- adds the Load sub option-->
+                        <li><button id="cur" class="button" onclick="currfunc()">Current</button></li>
+                        <!-- <li><button id="heatmap" class="button">Heatmap</button></li>
 	   <!--<li><button id="ref" class="button">Refresh</button></li>       <!-- adds the Refresh sub option-->
-	    <li id="agr"><a>Analysis</a>
-		<ul>
-		    <li><button id="temp" class="button" onclick="tempfunc()">Temporal</button></li>
-		    <li><button id="sum" class="button" onclick="sumfunc()">Aggregate(Sum)</button></li>
-        <li><button id="heatmap" class="button" onclick="heatfunc()">Rank View</button></li>
-	        </ul>
-	    </li>
-	  </ul>
-      </li>
-    </ul>
-  </div>
-</nav>
-       
-<div id="wrap">
+                        <li id="agr"><a>Analysis</a>
+                            <ul>
+                                <li><button id="temp" class="button" onclick="tempfunc()">Temporal</button></li>
+                                <li><button id="sum" class="button" onclick="sumfunc()">Aggregate(Sum)</button></li>
+                                <li><button id="heatmap" class="button" onclick="heatfunc()">Rank View</button></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-  <div  id="floatleft">			<!-----Indicates the left side of the display----->
-		
-		<!-----Links to the external scripts----->
-  <script type="text/javascript" src="open.js"></script>
-  <script type="text/javascript" src="clean.js"></script>
-	<script type="text/javascript" src="current.js"></script>
-        <script type="text/javascript" src="heatmap.js"></script>	
-	<!--  <script type="text/javascript" src="refresh.js"></script>
+    <div id="wrap">
+
+        <div id="floatleft">
+            <!-----Indicates the left side of the display----->
+
+            <!-----Links to the external scripts----->
+            <script type="text/javascript" src="open.js"></script>
+            <script type="text/javascript" src="clean.js"></script>
+            <script type="text/javascript" src="current.js"></script>
+            <script type="text/javascript" src="heatmap.js"></script>
+            <!--  <script type="text/javascript" src="refresh.js"></script>
 	<script type="text/javascript" src="clean.js"></script>
         <script type="text/javascript" src="new.js"></script>-->
-	<script type="text/javascript" src="aggregatesum.js"></script>
-        <script type="text/javascript" src="aggregatetemp.js"></script>
-  </div>
+            <script type="text/javascript" src="aggregatesum.js"></script>
+            <script type="text/javascript" src="aggregatetemp.js"></script>
+        </div>
 
-  <div id="floatright" >		<!-----Indicates the right side of the display----->		
-  
-    <div id="vl"></div>		<!-----The line dividing the display into two parts-----> 
+        <div id="floatright">
+            <!-----Indicates the right side of the display----->
 
-      <div id="headingbg"></div>
-      <div id="openbg"> </div>
-      <div id="currentbg"></div>
-      <div id="heatmapbg"></div>
-      <!--<div id="refreshbg"> </div>
+            <div id="vl"></div>
+            <!-----The line dividing the display into two parts----->
+
+            <div id="headingbg"></div>
+            <div id="openbg"> </div>
+            <div id="currentbg"></div>
+            <div id="heatmapbg"></div>
+            <!--<div id="refreshbg"> </div>
       <div id="cleanbg"> </div>
       <div id="newbg"> </div>-->
-      <div id="aggregatesumbg"> </div>
-      <div id="aggregatetempbg"> </div>	
+            <div id="aggregatesumbg"> </div>
+            <div id="aggregatetempbg"> </div>
 
-      <div id="pathtext">
-      <h1 style="text-align:center;"><font color="black">No data loaded</font></h2>
-      </div>
-		<!-----Links to the external scripts----->
-        <script type="text/javascript" src="current.js"></script>
-        <script type="text/javascript" src="heatmap.js"></script>
-        <script type="text/javascript" src="aggregatesum.js"></script>
-        <script type="text/javascript" src="aggregatetemp.js"></script>
-  </div>
-	
-</div>
-  
- 
-<script>
-var fileLength = 0;
-var fetched = false;
-var isResizing = false,
-    lastDownX = 0;
-(function() {
-    var container = document.getElementById("wrap"),
-        left = document.getElementById("floatleft"),
-        right = document.getElementById("floatright"),
-        handle = document.getElementById("vl");
-    handle.onmousedown = function(e) {
-        isResizing = true;
-        lastDownX = e.clientX;
-    };
-    document.onmousemove = function(e) {
-        // we don't want to do anything if we aren't resizing.
-        if (!isResizing) {
-            return;
-        }
-        var offsetRight = container.clientWidth - (e.clientX - container.offsetLeft);
-        left.style.right = offsetRight + "px";
-        right.style.width = offsetRight + "px";
-    }
-    document.onmouseup = function(e) {
-        // stop resizing
-        isResizing = false;
-    }
-})();
+            <div id="pathtext">
+                <h1 style="text-align:center;">
+                    <font color="black">No data loaded</font>
+                    </h2>
+            </div>
+            <!-----Links to the external scripts----->
+            <script type="text/javascript" src="current.js"></script>
+            <script type="text/javascript" src="heatmap.js"></script>
+            <script type="text/javascript" src="aggregatesum.js"></script>
+            <script type="text/javascript" src="aggregatetemp.js"></script>
+        </div>
 
-var xpath = null, data = [],
-    filename = [],
-    k, dataArray = [];
+    </div>
 
-function myFunction(isCurr = false) {
-  fetched = false;
-  data = [],
-  filename = [],
-  k, dataArray = []; 
-  fileLength = 0;
-  var ws = new WebSocket("ws://127.0.0.1:8081");
-    ws.onopen = function(event) {
-        console.log(xpath);
-        ws.send(xpath); /*Sending the path entered by the user to the server*/
-    };
-    ws.onerror = function(err) {
-        console.log('err: ', err);
-    };
-    ws.onmessage = function(event) {
-        var k = (event.data).split('.').pop();
-        /*Check if the message received consists of filenames or data of the files,if the message consists of filename then add it to the array of filename else convert the data using eval and add it in dataArray*/
-        if (k === "tsv") {
-            filename.push(event.data);
-            fileLength = fileLength + 1;
-            //console.log(filename);
-        } else if (event.data != "Done") {
-            data = eval(event.data);
-            dataArray.push(data);
-            console.log(dataArray);
-            if (isCurr)
-              disp(); /*Calling the disp function to display the last 6 files via pie chart*/
+
+    <script>
+        var fileLength = 0;
+        var fetched = false;
+        var isResizing = false,
+            lastDownX = 0;
+        (function() {
+            var container = document.getElementById("wrap"),
+                left = document.getElementById("floatleft"),
+                right = document.getElementById("floatright"),
+                handle = document.getElementById("vl");
+            handle.onmousedown = function(e) {
+                isResizing = true;
+                lastDownX = e.clientX;
+            };
+            document.onmousemove = function(e) {
+                // we don't want to do anything if we aren't resizing.
+                if (!isResizing) {
+                    return;
+                }
+                var offsetRight = container.clientWidth - (e.clientX - container.offsetLeft);
+                left.style.right = offsetRight + "px";
+                right.style.width = offsetRight + "px";
+            }
+            document.onmouseup = function(e) {
+                // stop resizing
+                isResizing = false;
+            }
+        })();
+
+        var xpath = null,
+            data = [],
+            filename = [],
+            k, dataArray = [];
+
+        function myFunction(isCurr = false) {
+            fetched = false;
+            data = [],
+                filename = [],
+                k, dataArray = [];
+            fileLength = 0;
+            var ws = new WebSocket("ws://127.0.0.1:8081");
+            ws.onopen = function(event) {
+                console.log(xpath);
+                ws.send(xpath); /*Sending the path entered by the user to the server*/
+            };
+            ws.onerror = function(err) {
+                console.log('err: ', err);
+            };
+            ws.onmessage = function(event) {
+                var k = (event.data).split('.').pop();
+                /*Check if the message received consists of filenames or data of the files,if the message consists of filename then add it to the array of filename else convert the data using eval and add it in dataArray*/
+                if (k === "tsv") {
+                    filename.push(event.data);
+                    fileLength = fileLength + 1;
+                    //console.log(filename);
+                } else if (event.data != "Done") {
+                    data = eval(event.data);
+                    dataArray.push(data);
+                    console.log(dataArray);
+                    if (isCurr)
+                        disp(); /*Calling the disp function to display the last 6 files via pie chart*/
+                } else {
+                    fetched = true;
+                }
+            };
+            ws.onclose = function() {
+                console.log("Connection is closed...");
+            };
         }
-        else {
-          fetched = true;
-        }
-    };
-    ws.onclose = function() {
-        console.log("Connection is closed...");
-    };
-}
-</script>
-	
+    </script>
+
 </body>
+
 </html>
