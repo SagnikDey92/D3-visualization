@@ -12,30 +12,7 @@ function currfunc() {
 
 function noselectcurr() {
 
-    document.getElementById("pathtext").innerHTML = " ";
-    document.getElementById("openbg").innerHTML = " ";
-    document.getElementById("currentbg").innerHTML = " ";
-    /*document.getElementById("refreshbg").innerHTML=" ";
-    document.getElementById("cleanbg").innerHTML=" ";
-    document.getElementById("newbg").innerHTML=" ";*/
-    document.getElementById("aggregatesumbg").innerHTML = " ";
-    document.getElementById("aggregatetempbg").innerHTML = " ";
-    document.getElementById("heatmapbg").innerHTML = " ";
-    document.getElementById("headingbg").innerHTML = " ";
-
-    var headingsum = d3.select("#headingbg")
-        .style("justify-content", "center")
-        .append("svg")
-        .attr("width", 540)
-        .attr("height", 37)
-        .style("text-align", "center")
-        .attr("transform", "translate(350,-20)")
-        .append("text")
-        .attr("transform", "translate(80,30)")
-        .style("font-size", "30px")
-        .text("Function profiles of current output");
-
-    document.getElementById("headingbg").style.height = "20px";
+    cleanfunc();
 
     myFunction(true);
 }

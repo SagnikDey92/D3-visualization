@@ -198,16 +198,7 @@ function dispcallsum(funcsum, filelen, filenamesum) {
 }
 /*Function to directly display the bar charts if the user has given the path directory*/
 function noselectsum() {
-    document.getElementById("openbg").innerHTML = " ";
-    document.getElementById("pathtext").innerHTML = " ";
-    document.getElementById("currentbg").innerHTML = " ";
-    //document.getElementById("refreshbg").innerHTML=" ";
-    //document.getElementById("cleanbg").innerHTML=" ";
-    //document.getElementById("newbg").innerHTML=" ";
-    document.getElementById("aggregatesumbg").innerHTML = " ";
-    document.getElementById("aggregatetempbg").innerHTML = " ";
-    document.getElementById("heatmapbg").innerHTML = " ";
-    document.getElementById("headingbg").innerHTML = " ";
+    cleanfunc();
 
     var flag = 0,
         m = 0,
