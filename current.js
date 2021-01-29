@@ -1,13 +1,20 @@
+// var collator = new Intl.Collator(undefined, {
+//     numeric: true,
+//     sensitivity: 'base'
+// });
+
 var s = 0,
     namesorg = [],
     index = 0;
 var fileSelect1 = document.getElementById("cur");
 
 function currfunc() {
+  $(this).attr('disabled', true);
   console.log(xpath)
   if (xpath == null)
     xpath = prompt("Please enter path to Data", "/home/sagnik/Desktop/HPC/D3-visualization/Data");
   noselectcurr(); 
+  $(this).attr('disabled', false);
 }
 
 function noselectcurr() {
@@ -19,10 +26,12 @@ function noselectcurr() {
 
 function disp() {
   if (fileLength > 6) {
-      var l = fileLength - 6;
+      var l = 6;
   } else {
       var l = fileLength;
   }
+
+  //filename.sort(collator.compare);
 
   if (dataArray.length == fileLength) /*Determining if the data of all files has been received*/ {
       var headingsum = d3.select("#headingbg")
@@ -42,7 +51,9 @@ function disp() {
       console.log(dataArray);
       for (i = fileLength - l; i < fileLength; i++) {
           var data = [];
-          data = dataArray[i];
+          //data = dataArray[i];
+          //console.log("Thismsg: " + filename[i]);
+          data = dataDict[filename[i]];
           var width = 350;
           var height = 280;
 

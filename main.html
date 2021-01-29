@@ -151,7 +151,8 @@
         var xpath = null,
             data = [],
             filename = [],
-            k, dataArray = [];
+            k, dataArray = [],
+            dataDict = {};
 
         function myFunction(isCurr = false) {
             fetched = false;
@@ -168,18 +169,23 @@
                 console.log('err: ', err);
             };
             ws.onmessage = function(event) {
-                var k = (event.data).split('.').pop();
+                var msg = event.data.split("|||")[0];
+                var n = event.data.split("|||").pop();
+                //console.log(n);
+                var k = msg.split('.').pop();
                 /*Check if the message received consists of filenames or data of the files,if the message consists of filename then add it to the array of filename else convert the data using eval and add it in dataArray*/
-                if (k === "tsv") {
-                    filename.push(event.data);
+                if (k === "csv" || k === "tsv") {
+                    filename.push(msg);
                     fileLength = fileLength + 1;
                     //console.log(filename);
-                } else if (event.data != "Done") {
-                    data = eval(event.data);
+                } else if (msg != "Done") {
+                    //console.log(msg);
+                    data = eval(msg);
                     dataArray.push(data);
-                    console.log(dataArray);
+                    //console.log(dataArray);
                     if (isCurr)
                         disp(); /*Calling the disp function to display the last 6 files via pie chart*/
+                    dataDict[n] = data;
                 } else {
                     fetched = true;
                 }

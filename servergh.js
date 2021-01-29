@@ -28,7 +28,7 @@ wss.on('connection', ((ws) => {
                     numeric: true,
                     sensitivity: 'base'
                 });
-                filenames = filenames.sort(collator.compare)
+                filenames = filenames.sort(collator.compare);
                 var len = filenames.length;
                 var i;
 
@@ -38,17 +38,19 @@ wss.on('connection', ((ws) => {
                     console.log(filename);
                     ws.send(filename); /*Sends the filenames present in the directory*/
                 }
-                var j = 0,
-                    arr = [];
+                var plz = 0;
 
                 var d3 = require("d3");
                 filenames.forEach(function(filename) {
+                    //console.log(filename);
                     fs.readFile(dirname + "/" + filename, 'utf-8', function(err, data) {
+                        //console.log(filename);
                         data = d3.tsvParse(data); /*Reads the data using d3.tsv function */
-                        ws.send(JSON.stringify(data)); /*Sends the data back to the html site*/
-
+                        var tosend = JSON.stringify(data) + "|||" + filename;
+                        //console.log(tosend);
+                        ws.send(tosend); /*Sends the data back to the html site*/
                     }); //readFile closing tag
-
+                    //console.log(plz);
                 }); //foreach function
                 ws.send("Done");
             }
