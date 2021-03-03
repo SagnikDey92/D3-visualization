@@ -1,9 +1,11 @@
 import csv
 import sys
-
+import os
 from os import walk
 
 pwd = sys.argv[1]
+if pwd[-1] != '/':
+    pwd = pwd+'/'
 f = []
 for (dirpath, dirnames, filenames) in walk(pwd):
     f.extend(filenames)
@@ -147,3 +149,5 @@ for latest_report in f:
         with open(pwd+'Aggregate_Point_To_Point_'+endtime+'.csv', 'w') as out_file:
             writer = csv.writer(out_file)
             writer.writerows(Aggregate_Point_To_Point)
+
+        os.remove(pwd+latest_report)

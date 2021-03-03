@@ -44,7 +44,7 @@ function dispcallsum(funcsum, filelen, filenamesum) {
         console.log(funcsum);
 
         for (i = 0; i < filelen; i++) {
-            namenosum.push(((filenamesum[i]).split('.').pop())); /*Splitting the cg in filename inorder to display the number present in the filename alone*/
+            namenosum.push(((filenamesum[i]).split('.').pop()).split('_').pop()); /*Splitting the cg in filename inorder to display the number present in the filename alone*/
         }
         console.log(namenosum);
 
@@ -211,7 +211,7 @@ function noselectsum() {
 	}
 	console.log(dataArray);
     for (var i = 0; i < dataArray.length; i++) {
-        var data = dataArray[i];
+        var data = dataDict[filename[i]];
         console.log(data);
         data.forEach(function(d) {
             flag = 0;

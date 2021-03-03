@@ -2,7 +2,7 @@
 
 const WebSocketServer = require('ws').Server
 const wss = new WebSocketServer({
-    port: 8081
+    port: 8082
 });
 
 wss.on('connection', ((ws) => {
@@ -28,7 +28,14 @@ wss.on('connection', ((ws) => {
                     numeric: true,
                     sensitivity: 'base'
                 });
-                filenames = filenames.sort(collator.compare);
+                //Change filter for heatmap later
+                filenames = filenames
+                            .filter(name => name.includes("Aggregate_Time"))
+                            .sort(collator.compare)
+                if (filenames.length>6)
+                    filenames = filenames
+                                .reverse() 
+                                .splice(0, 6)
                 var len = filenames.length;
                 var i;
 
@@ -45,7 +52,7 @@ wss.on('connection', ((ws) => {
                     //console.log(filename);
                     fs.readFile(dirname + "/" + filename, 'utf-8', function(err, data) {
                         //console.log(filename);
-                        data = d3.tsvParse(data); /*Reads the data using d3.tsv function */
+                        data = d3.csvParse(data); /*Reads the data using d3.tsv function */
                         var tosend = JSON.stringify(data) + "|||" + filename;
                         //console.log(tosend);
                         ws.send(tosend); /*Sends the data back to the html site*/

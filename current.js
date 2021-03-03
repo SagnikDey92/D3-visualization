@@ -12,7 +12,7 @@ function currfunc() {
   $(this).attr('disabled', true);
   console.log(xpath)
   if (xpath == null)
-    xpath = prompt("Please enter path to Data", "/home/sagnik/Desktop/HPC/D3-visualization/Data");
+    xpath = prompt("Please enter path to Data", "/home/sagnik/Desktop/HPC/CSVdata");
   noselectcurr(); 
   $(this).attr('disabled', false);
 }
@@ -50,13 +50,17 @@ function disp() {
 
       console.log(dataArray);
       for (i = fileLength - l; i < fileLength; i++) {
-          var data = [];
+          var data1;
           //data = dataArray[i];
           //console.log("Thismsg: " + filename[i]);
-          data = dataDict[filename[i]];
+          data1 = dataDict[filename[i]];
+          console.log(data1.length);
+          var data = data1.sort(function(a, b) {
+            return d3.descending(+a.Time, +b.Time);
+          }).slice(0, 10);//top 10 here
           var width = 350;
           var height = 280;
-
+          console.log(data.length);
           /*-----Setting the attributes for the file added-----*/
 
           var svg = d3.select("#currentbg").append("svg")
@@ -88,7 +92,7 @@ function disp() {
               .attr("text-anchor", "middle")
               .style("font-size", "16px")
               .style("text-decoration", "underline")
-              .text((filename[i]).split('.').slice(0, -1).join('.'));
+              .text((filename[i]).split('.').slice(0, -1).join('.').split('_').pop());
 
           //console.log(filename);
 
