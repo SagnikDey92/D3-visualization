@@ -160,7 +160,7 @@
                 filename = [],
                 k, dataArray = [];
             fileLength = 0;
-            var ws = new WebSocket("ws://127.0.0.1:8081");
+            var ws = new WebSocket("ws://127.0.0.1:8082");
             ws.onopen = function(event) {
                 console.log(xpath);
                 ws.send(xpath); /*Sending the path entered by the user to the server*/
