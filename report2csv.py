@@ -46,7 +46,11 @@ for latest_report in f:
                 print(lines[i])
                 start = i+2
                 found = 1
-        for i in range(start, end):
+        
+        head_line = lines[start]
+        head_line = head_line.replace('%', '')
+        MPI_Time.append(head_line.split())
+        for i in range(start+1, end):
             line = lines[i]
             MPI_Time.append(line.split())
 
@@ -70,7 +74,11 @@ for latest_report in f:
                 print(lines[i])
                 start = i+2
                 found = 1
-        for i in range(start, end):
+
+        head_line = lines[start]
+        head_line = head_line.replace('%', '')
+        Aggregate_Time.append(head_line.split())
+        for i in range(start+1, end):
             line = lines[i]
             Aggregate_Time.append(line.split())
 
@@ -94,7 +102,11 @@ for latest_report in f:
                 print(lines[i])
                 start = i+2
                 found = 1
-        for i in range(start, end):
+
+        head_line = lines[start]
+        head_line = head_line.replace('%', '')
+        Aggregate_Sent_Message_Size.append(head_line.split())
+        for i in range(start+1, end):
             line = lines[i]
             Aggregate_Sent_Message_Size.append(line.split())
 
@@ -118,7 +130,11 @@ for latest_report in f:
                 print(lines[i])
                 start = i+2
                 found = 1
-        for i in range(start, end):
+
+        head_line = lines[start]
+        head_line = head_line.replace('%', '')
+        Aggregate_Collective_Time.append(head_line.split())
+        for i in range(start+1, end):
             line = lines[i]
             Aggregate_Collective_Time.append(line.split())
 
@@ -142,7 +158,11 @@ for latest_report in f:
                 print(lines[i])
                 start = i+2
                 found = 1
-        for i in range(start, end):
+
+        head_line = lines[start]
+        head_line = head_line.replace('%', '')
+        Aggregate_Point_To_Point.append(head_line.split())
+        for i in range(start+1, end):
             line = lines[i]
             Aggregate_Point_To_Point.append(line.split())
 
